@@ -114,5 +114,12 @@ namespace IMDB
         {
             WriteEvent(3, exception);
         }
+
+        [Event(4, Level = EventLevel.Informational,
+        Message = "{0}: {1}")]
+        public void Log(string title, string message)
+        {
+            WriteEvent(4, title, message);
+        }
     }
 }

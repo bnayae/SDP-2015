@@ -15,20 +15,21 @@ namespace IMDB
     public class TweetReminder : Actor<Status>, ITweetReminder, IRemindable
     {
         private const string REMINDER_NAME = "TweetReminder";
+        private const int TIMER_DURATION_SEC = 30; 
 
-        public Task Initialize()
+        public async Task Initialize()
         {
+            ActorEventSource.Current.ActorMessage(this, $"INITIALIZE: {Host.ActivationContext.WorkDirectory}, {this.Id}");
             if (State.Inilialized)
-                return Task.FromResult(1);
+                return;
                      
-            Task<IActorReminder> reminderRegistration = RegisterReminder(
+            State.Inilialized = true;
+            IActorReminder reminderRegistration = await RegisterReminder(
                                                             REMINDER_NAME,
                                                             new byte[0],
-                                                            TimeSpan.FromSeconds(10),
-                                                            TimeSpan.FromDays(10),
+                                                            TimeSpan.FromSeconds(TIMER_DURATION_SEC),
+                                                            TimeSpan.FromSeconds(TIMER_DURATION_SEC),
                                                             ActorReminderAttributes.None);
-            State.Inilialized = true;
-            return Task.FromResult(1);
         }
 
 

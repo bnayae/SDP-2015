@@ -7,7 +7,7 @@
   <DefaultServices>
     <Service Name="TweetReminderActorService">
       <StatefulService ServiceTypeName="TweetReminderActorServiceType" TargetReplicaSetSize="3" MinReplicaSetSize="2">
-        <UniformInt64Partition PartitionCount="4" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+        <UniformInt64Partition PartitionCount="3" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
       </StatefulService>
     </Service>
     <Service Name="TweetLoaderActorService">

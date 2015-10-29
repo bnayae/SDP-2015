@@ -14,7 +14,7 @@ namespace IMDB_Fabric.Client
         {
             var proxy = ActorProxy.Create<ITweetLoader>(ActorId.NewId(), "fabric:/IMDB_Fabric");
 
-            proxy.Load();
+            proxy.LoadAsync();
 
             Console.ReadKey();
         }

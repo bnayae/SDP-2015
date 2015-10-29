@@ -16,10 +16,10 @@ namespace IMDB
             ActorEventSource.Current.ActorMessage(this, "Activating");
             return base.OnActivateAsync();
         }
-        public Task Load()
+        public Task LoadAsync()
         {
             ActorEventSource.Current.ActorMessage(this, "Doing Work");
-            return Task.FromResult(1);
+            return Task.CompletedTask;
         }
     }
 }

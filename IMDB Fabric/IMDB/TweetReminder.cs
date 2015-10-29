@@ -33,7 +33,7 @@ namespace IMDB
         }
 
 
-        public Task ReceiveReminderAsync(
+        public async Task ReceiveReminderAsync(
             string reminderName, 
             byte[] context, 
             TimeSpan dueTime,
@@ -43,9 +43,7 @@ namespace IMDB
 
             var id = ActorId.NewId();
             var tweetLoader = ActorProxy.Create<ITweetLoader>(id);
-            tweetLoader.Load();
-
-            return Task.FromResult(1);
+            await tweetLoader.LoadAsync();
         }
     }
 }

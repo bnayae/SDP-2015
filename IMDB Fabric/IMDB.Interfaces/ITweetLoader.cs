@@ -9,6 +9,6 @@ namespace IMDB.Interfaces
 {
     public interface ITweetLoader : IActor
     {
-        Task Load();
+        Task LoadAsync();
     }
 }

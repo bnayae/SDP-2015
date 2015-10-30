@@ -16,10 +16,14 @@ namespace IMDB
             ActorEventSource.Current.ActorMessage(this, "Activating");
             return base.OnActivateAsync();
         }
-        public Task LoadAsync()
+        public async Task LoadAsync()
         {
             ActorEventSource.Current.ActorMessage(this, "Doing Work");
-            return Task.CompletedTask;
+
+            var id = new ActorId(1);// ActorId.NewId();
+            var proxy = ActorProxy.Create<IImdb>(id, "fabric:/IMDB_Fabric");
+
+            await proxy.Process("not real tweet");
         }
     }
 }

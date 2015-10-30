@@ -21,17 +21,17 @@ namespace IMDB
         {
             ActorEventSource.Current.ActorMessage(this, $"INITIALIZE: {Host.ActivationContext.WorkDirectory}, {this.Id}");
             if (State.Inilialized)
-                return;
-                     
+                return;                  
             State.Inilialized = true;
-            IActorReminder reminderRegistration = await RegisterReminder(
-                                                            REMINDER_NAME,
-                                                            new byte[0],
-                                                            TimeSpan.FromSeconds(TIMER_DURATION_SEC),
-                                                            TimeSpan.FromSeconds(TIMER_DURATION_SEC),
-                                                            ActorReminderAttributes.None);
-        }
 
+            IActorReminder reminderRegistration = 
+                await RegisterReminder(
+                            REMINDER_NAME,
+                            new byte[0],
+                            TimeSpan.FromSeconds(TIMER_DURATION_SEC),
+                            TimeSpan.FromSeconds(TIMER_DURATION_SEC),
+                            ActorReminderAttributes.None);
+        }
 
         public async Task ReceiveReminderAsync(
             string reminderName, 

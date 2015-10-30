@@ -17,6 +17,7 @@ namespace IMDB
                 {
                     fabricRuntime.RegisterActor(typeof(TweetLoader));
                     fabricRuntime.RegisterActor(typeof(TweetReminder));
+                    fabricRuntime.RegisterActor(typeof(Imdb));
 
                     var id = new ActorId("Singleton");
                     var reminderProxy = ActorProxy.Create<ITweetReminder>(id);

@@ -12,11 +12,17 @@ namespace IMDB_Fabric.Client
     {
         public static void Main(string[] args)
         {
-            var proxy = ActorProxy.Create<ITweetLoader>(ActorId.NewId(), "fabric:/IMDB_Fabric");
-
-            proxy.LoadAsync();
-
+            Task t = InitializeAsync();
             Console.ReadKey();
+        }
+
+        private static async Task InitializeAsync()
+        {
+            var id = new ActorId(1);// ActorId.NewId();
+            var proxy = ActorProxy.Create<IImdb>(id, "fabric:/IMDB_Fabric");
+
+            var subscriber = new MovieEvent();
+            await proxy.SubscribeAsync<IMovieEvent>(subscriber);
         }
     }
 }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace IMDB
 {
-    [EventSource(Name = "MyCompany-IMDB_Fabric-IMDB")]
+    [EventSource(Name = "IMDB_Fabric-Actors")]
     internal sealed class ActorEventSource : EventSource
     {
         public static ActorEventSource Current = new ActorEventSource();

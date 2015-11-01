@@ -1,23 +1,42 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ApplicationManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ApplicationTypeName="IMDB_FabricType" ApplicationTypeVersion="1.0.0.0" xmlns="http://schemas.microsoft.com/2011/01/fabric">
-  <Parameters />
+  <Parameters>
+    <Parameter Name="TwitterServices_InstanceCount" DefaultValue="1" />
+    <Parameter Name="Services_MinReplicaSetSize" DefaultValue="2" />
+    <Parameter Name="Services_PartitionCount" DefaultValue="1" />
+    <Parameter Name="Services_TargetReplicaSetSize" DefaultValue="3" />
+  </Parameters>
   <ServiceManifestImport>
     <ServiceManifestRef ServiceManifestName="IMDBPkg" ServiceManifestVersion="1.0.0.0" />
   </ServiceManifestImport>
+  <ServiceManifestImport>
+    <ServiceManifestRef ServiceManifestName="IMDB.ServicesPkg" ServiceManifestVersion="1.0.0.0" />
+    <ConfigOverrides />
+  </ServiceManifestImport>
   <DefaultServices>
+    <Service Name="OutputPublisherActorService">
+      <StatelessService ServiceTypeName="OutputPublisherActorServiceType">
+        <UniformInt64Partition PartitionCount="9" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatelessService>
+    </Service>
     <Service Name="ImdbActorService">
       <StatelessService ServiceTypeName="ImdbActorServiceType">
         <UniformInt64Partition PartitionCount="9" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
       </StatelessService>
     </Service>
-    <Service Name="TweetReminderActorService">
-      <StatefulService ServiceTypeName="TweetReminderActorServiceType" TargetReplicaSetSize="3" MinReplicaSetSize="2">
+    <Service Name="TwitterReminderActorService">
+      <StatefulService ServiceTypeName="TwitterReminderActorServiceType" TargetReplicaSetSize="3" MinReplicaSetSize="2">
         <UniformInt64Partition PartitionCount="3" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
       </StatefulService>
     </Service>
-    <Service Name="TweetLoaderActorService">
-      <StatelessService ServiceTypeName="TweetLoaderActorServiceType">
+    <Service Name="TwitterProviderActorService">
+      <StatefulService ServiceTypeName="TwitterProviderActorServiceType" TargetReplicaSetSize="3" MinReplicaSetSize="2">
         <UniformInt64Partition PartitionCount="4" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatefulService>
+    </Service>
+    <Service Name="Services">
+      <StatelessService ServiceTypeName="TwitterServicesType" InstanceCount="[TwitterServices_InstanceCount]">
+        <SingletonPartition />
       </StatelessService>
     </Service>
   </DefaultServices>

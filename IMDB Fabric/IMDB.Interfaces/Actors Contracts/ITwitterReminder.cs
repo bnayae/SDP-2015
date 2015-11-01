@@ -7,9 +7,8 @@ using Microsoft.ServiceFabric.Actors;
 
 namespace IMDB.Interfaces
 {
-    public interface IMovieEvent : IActorEvents
+    public interface ITwitterReminder : IActor
     {
-        void LikeMovie(Movie movie);
-        void LikeStar(Star movie);
+        Task Initialize();
     }
 }

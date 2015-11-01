@@ -7,7 +7,7 @@ using Microsoft.ServiceFabric.Actors;
 
 namespace IMDB.Interfaces
 {
-    public interface ITweetLoader : IActor
+    public interface ITwitterProvider : IActor
     {
         Task LoadAsync();
     }

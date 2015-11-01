@@ -15,12 +15,13 @@ namespace IMDB
             {
                 using (FabricRuntime fabricRuntime = FabricRuntime.Create())
                 {
-                    fabricRuntime.RegisterActor(typeof(TweetLoader));
-                    fabricRuntime.RegisterActor(typeof(TweetReminder));
+                    //fabricRuntime.RegisterActor(typeof(TwitterProvider));
+                    //fabricRuntime.RegisterActor(typeof(TwitterReminder));
                     fabricRuntime.RegisterActor(typeof(Imdb));
+                    fabricRuntime.RegisterActor(typeof(OutputPublisher));
 
                     var id = new ActorId("Singleton");
-                    var reminderProxy = ActorProxy.Create<ITweetReminder>(id);
+                    var reminderProxy = ActorProxy.Create<ITwitterReminder>(id);
                     reminderProxy.Initialize();
                     Thread.Sleep(Timeout.Infinite);
                 }

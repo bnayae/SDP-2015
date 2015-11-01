@@ -1,12 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Settings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/2011/01/fabric">
-   <Section Name="TweetReminderActorServiceReplicatorConfig">
-      <Parameter Name="ReplicatorEndpoint" Value="TweetReminderActorServiceReplicatorEndpoint" />
+   <Section Name="TwitterReminderActorServiceReplicatorConfig">
+      <Parameter Name="ReplicatorEndpoint" Value="TwitterReminderActorServiceReplicatorEndpoint" />
    </Section>
-   <Section Name="TweetReminderActorServiceReplicatorSecurityConfig">
+   <Section Name="TwitterReminderActorServiceReplicatorSecurityConfig">
       <Parameter Name="CredentialType" Value="None" />
    </Section>
-   <Section Name="TweetReminderActorServiceLocalStoreConfig">
+   <Section Name="TwitterReminderActorServiceLocalStoreConfig">
+      <Parameter Name="MaxAsyncCommitDelayInMilliseconds" Value="100" />
+      <Parameter Name="MaxVerPages" Value="32768" />
+   </Section>
+   <Section Name="TwitterProviderActorServiceReplicatorConfig">
+      <Parameter Name="ReplicatorEndpoint" Value="TwitterProviderActorServiceReplicatorEndpoint" />
+   </Section>
+   <Section Name="TwitterProviderActorServiceReplicatorSecurityConfig">
+      <Parameter Name="CredentialType" Value="None" />
+   </Section>
+   <Section Name="TwitterProviderActorServiceLocalStoreConfig">
       <Parameter Name="MaxAsyncCommitDelayInMilliseconds" Value="100" />
       <Parameter Name="MaxVerPages" Value="32768" />
    </Section>

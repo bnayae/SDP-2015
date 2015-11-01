@@ -18,8 +18,8 @@ namespace IMDB_Fabric.Client
 
         private static async Task InitializeAsync()
         {
-            var id = new ActorId(1);// ActorId.NewId();
-            var proxy = ActorProxy.Create<IImdb>(id, "fabric:/IMDB_Fabric");
+            var id = new ActorId("PUBLISH");// Kind of topic;
+            var proxy = ActorProxy.Create<IOutputPublisher>(id, "fabric:/IMDB_Fabric");
 
             var subscriber = new MovieEvent();
             await proxy.SubscribeAsync<IMovieEvent>(subscriber);

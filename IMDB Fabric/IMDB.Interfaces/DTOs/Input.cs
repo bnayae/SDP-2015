@@ -9,9 +9,13 @@ using System.Runtime.Serialization;
 namespace IMDB.Interfaces
 {
     [DataContract]
-    public class Status
+    public class Input 
     {
         [DataMember]
-        public bool Inilialized { get; set; }
+        public string UserName { get; set; }
+        [DataMember]
+        public string UserImageUrl { get; set; }
+        [DataMember]
+        public string Url { get; set; }
     }
 }

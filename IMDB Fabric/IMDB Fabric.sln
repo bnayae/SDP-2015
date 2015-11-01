@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMDB.Interfaces", "IMDB.Int
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMDB_Fabric.Client", "IMDB_Fabric.Client\IMDB_Fabric.Client.csproj", "{5D22C287-8C62-400B-A668-7B4DC8F806D5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMDB.Services", "IMDB.Services\IMDB.Services.csproj", "{B170A124-ED62-4697-9746-E37606A785EC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -35,6 +37,10 @@ Global
 		{5D22C287-8C62-400B-A668-7B4DC8F806D5}.Debug|x64.Build.0 = Debug|x64
 		{5D22C287-8C62-400B-A668-7B4DC8F806D5}.Release|x64.ActiveCfg = Release|x64
 		{5D22C287-8C62-400B-A668-7B4DC8F806D5}.Release|x64.Build.0 = Release|x64
+		{B170A124-ED62-4697-9746-E37606A785EC}.Debug|x64.ActiveCfg = Debug|x64
+		{B170A124-ED62-4697-9746-E37606A785EC}.Debug|x64.Build.0 = Debug|x64
+		{B170A124-ED62-4697-9746-E37606A785EC}.Release|x64.ActiveCfg = Release|x64
+		{B170A124-ED62-4697-9746-E37606A785EC}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

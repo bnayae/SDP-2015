@@ -4,11 +4,14 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Actors;
+using System.Runtime.Serialization;
 
-namespace IMDB.Interfaces
+namespace IMDB
 {
-    public interface ITweetReminder : IActor
+    [DataContract]
+    public class Modification
     {
-        Task Initialize();
+        [DataMember]
+        public DateTimeOffset LastModified { get; set; }
     }
 }

@@ -13,5 +13,10 @@ namespace IMDB_Fabric.Client
         {
             Console.WriteLine($"Movie {movie.Name} ({movie.Year})");
         }
+
+        public void LikeStar(Star star)
+        {
+            Console.WriteLine($"Star {star.Name}");
+        }
     }
 }

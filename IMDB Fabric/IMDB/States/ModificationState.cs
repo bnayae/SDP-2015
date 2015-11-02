@@ -9,7 +9,7 @@ using System.Runtime.Serialization;
 namespace IMDB
 {
     [DataContract]
-    public class Modification
+    public class ModificationState
     {
         [DataMember]
         public DateTimeOffset LastModified { get; set; }

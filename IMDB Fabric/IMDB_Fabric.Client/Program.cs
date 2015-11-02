@@ -20,9 +20,23 @@ namespace IMDB_Fabric.Client
         {
             var id = new ActorId("PUBLISH");// Kind of topic;
             var proxy = ActorProxy.Create<IOutputPublisher>(id, "fabric:/IMDB_Fabric");
-
-            var subscriber = new MovieEvent();
-            await proxy.SubscribeAsync<IMovieEvent>(subscriber);
+            while (true)
+            {
+                try
+                {
+                    var subscriber = new MovieEvent();
+                    await proxy.SubscribeAsync<IMovieEvent>(subscriber);
+                    Console.WriteLine("Ready");
+                    break;
+                }
+                catch (Exception)
+                {
+                    var actorRef = proxy.GetActorReference();
+                    var uri = actorRef?.ServiceUri;
+                    Console.WriteLine($"Wait for: {uri}");
+                    await Task.Delay(2000);
+                }
+            }
         }
     }
 }

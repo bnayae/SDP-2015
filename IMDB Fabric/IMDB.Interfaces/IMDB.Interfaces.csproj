@@ -64,13 +64,12 @@
   <ItemGroup>
     <Compile Include="Actors Contracts\IOutputPublisher.cs" />
     <Compile Include="Actors Contracts\IImdb.cs" />
-    <Compile Include="Actors Contracts\ITwitterReminder.cs" />
     <Compile Include="DTOs\Input.cs" />
+    <Compile Include="DTOs\ImdbItemBase.cs" />
     <Compile Include="DTOs\Star.cs" />
     <Compile Include="DTOs\Movie.cs" />
     <Compile Include="Events Contracts\IMovieEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Actors Contracts\ITwitterLoader.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -11,12 +11,12 @@ namespace IMDB_Fabric.Client
     {
         public void LikeMovie(Movie movie)
         {
-            Console.WriteLine($"Movie {movie.Name} ({movie.Year})");
+            Console.WriteLine($"Movie: {movie.Name} ({movie.Year}), \r\n\t{movie.ImageUrl}");
         }
 
         public void LikeStar(Star star)
         {
-            Console.WriteLine($"Star {star.Name}");
+            Console.WriteLine($"Actor: {star.Name} ({star.Birthdate:yyyy-MM-dd}), \r\n\t{star.ImageUrl}");
         }
     }
 }

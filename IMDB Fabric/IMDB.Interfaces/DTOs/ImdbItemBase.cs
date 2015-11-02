@@ -9,11 +9,17 @@ using System.Runtime.Serialization;
 namespace IMDB.Interfaces
 {
     [DataContract]
-    public class Input 
+    public abstract class ImdbItemBase
     {
+        public ImdbItemBase(string name, string imageUrl)
+        {
+            Name = name;
+            ImageUrl = imageUrl;
+        }
+
         [DataMember]
-        public string UserName { get; set; }
+        public string Name { get; private set; }
         [DataMember]
-        public string UserImageUrl { get; set; }
+        public string ImageUrl { get; private set; }
     }
 }

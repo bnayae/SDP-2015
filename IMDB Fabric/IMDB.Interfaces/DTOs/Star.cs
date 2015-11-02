@@ -9,9 +9,14 @@ using System.Runtime.Serialization;
 namespace IMDB.Interfaces
 {
     [DataContract]
-    public class Star 
+    public class Star : ImdbItemBase
     {
+        public Star(string name, DateTime birthdate, string imageUrl)
+            :base(name, imageUrl)
+        {
+            Birthdate = birthdate;
+        }
         [DataMember]
-        public string Name { get; set; }
+        public DateTime Birthdate { get; private set; }
     }
 }

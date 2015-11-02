@@ -4,11 +4,14 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Actors;
+using System.Runtime.Serialization;
 
-namespace IMDB.Interfaces
+namespace IMDB
 {
-    public interface ITwitterProvider : IActor
+    [DataContract]
+    public class ActorStatusState
     {
-        Task LoadAsync();
+        [DataMember]
+        public bool Inilialized { get; set; }
     }
 }

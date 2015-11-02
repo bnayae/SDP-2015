@@ -40,12 +40,11 @@ namespace IMDB.Services
 
                 var input = new Input
                     {
-                        Url = url,
                         UserImageUrl = status.User.ProfileImageUrl,
                         UserName = status.User.Name
                     };
 
-                var id = ActorId.NewId();
+                var id = new ActorId(url); // cache process effort by routing to the same actor
                 var proxy = ActorProxy.Create<IImdb>(id, "fabric:/IMDB_Fabric");
                 await proxy.Process(input);
             });
@@ -53,6 +52,12 @@ namespace IMDB.Services
             await Task.Delay(TimeSpan.MinValue, cancellationToken);
         }
 
+        #region AuthorizeAsync
+
+        /// <summary>
+        /// Authorizes against Twitter.
+        /// </summary>
+        /// <returns></returns>
         private async Task<IAuthorizer> AuthorizeAsync()
         {
             ServiceEventSource.Current.ServiceMessage(this, "Twitter: Authorizing");
@@ -80,7 +85,7 @@ namespace IMDB.Services
                 {
                     CredentialStore = new SingleUserInMemoryCredentialStore
                     {
-                        ConsumerKey = consumerKey ,
+                        ConsumerKey = consumerKey,
                         ConsumerSecret = consumerSecret,
                         AccessToken = accessToken,
                         AccessTokenSecret = accessTokenSecret
@@ -102,5 +107,7 @@ namespace IMDB.Services
 
             #endregion // Exception Handling
         }
+
+        #endregion // AuthorizeAsync
     }
 }

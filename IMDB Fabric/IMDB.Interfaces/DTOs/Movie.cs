@@ -9,11 +9,15 @@ using System.Runtime.Serialization;
 namespace IMDB.Interfaces
 {
     [DataContract]
-    public class Movie 
+    public class Movie : ImdbItemBase
     {
+        public Movie(string name, int year, string imageUrl)
+            :base(name, imageUrl)
+        {
+            Year = year;
+        }
+
         [DataMember]
-        public string Name { get; set; }
-        [DataMember]
-        public int Year { get; set; }
+        public int Year { get; private set; }
     }
 }

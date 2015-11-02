@@ -20,18 +20,8 @@
       </StatelessService>
     </Service>
     <Service Name="ImdbActorService">
-      <StatelessService ServiceTypeName="ImdbActorServiceType">
+      <StatefulService ServiceTypeName="ImdbActorServiceType" TargetReplicaSetSize="3" MinReplicaSetSize="2">
         <UniformInt64Partition PartitionCount="9" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
-      </StatelessService>
-    </Service>
-    <Service Name="TwitterReminderActorService">
-      <StatefulService ServiceTypeName="TwitterReminderActorServiceType" TargetReplicaSetSize="3" MinReplicaSetSize="2">
-        <UniformInt64Partition PartitionCount="3" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
-      </StatefulService>
-    </Service>
-    <Service Name="TwitterProviderActorService">
-      <StatefulService ServiceTypeName="TwitterProviderActorServiceType" TargetReplicaSetSize="3" MinReplicaSetSize="2">
-        <UniformInt64Partition PartitionCount="4" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
       </StatefulService>
     </Service>
     <Service Name="Services">

@@ -28,10 +28,12 @@ namespace IMDB.Services
             var auth = await AuthorizeAsync();
             var twitterCtx = new TwitterContext(auth);
 
+            await ClearOldTwits(twitterCtx);
+
             var stream = from srm in twitterCtx.Streaming
-                    where srm.Type == StreamingType.Filter &&
-                           srm.Track == "sdpf"
-                    select srm;
+                         where srm.Type == StreamingType.Filter &&
+                                srm.Track == "sdpf"
+                         select srm;
             await stream.StartAsync(async context =>
             {
                 if (context.Entity == null && context.EntityType != StreamEntityType.Status)
@@ -40,10 +42,10 @@ namespace IMDB.Services
                 var url = status.Entities.UrlEntities.FirstOrDefault()?.ExpandedUrl;
 
                 var input = new Input
-                    {
-                        UserImageUrl = status.User.ProfileImageUrl,
-                        UserName = status.User.Name
-                    };
+                {
+                    UserImageUrl = status.User.ProfileImageUrl,
+                    UserName = status.User.Name
+                };
 
                 var id = new ActorId(url); // cache process effort by routing to the same actor
                 var proxy = ActorProxy.Create<IImdb>(id, "fabric:/IMDB_Fabric");
@@ -52,6 +54,17 @@ namespace IMDB.Services
             });
 
             await Task.Delay(TimeSpan.MinValue, cancellationToken);
+        }
+
+        private static async Task ClearOldTwits(TwitterContext twitterCtx)
+        {
+            var statuses = (from status in twitterCtx.Status
+                               where status.Type == StatusType.User &&
+                                    status.Entities.HashTagEntities.Any(h=>h.Tag == "sdpf")
+                               select status.StatusID).ToArray();
+            var tasks = from id in statuses
+                      select twitterCtx.DeleteTweetAsync(id);
+            await Task.WhenAll(tasks);
         }
 
         #region AuthorizeAsync

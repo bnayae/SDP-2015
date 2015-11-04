@@ -19,7 +19,7 @@ namespace IMDB_Fabric.Client
         private static async Task InitializeAsync()
         {
             var id = new ActorId("PUBLISH");// Kind of topic;
-            var proxy = ActorProxy.Create<IOutputPublisher>(id, "fabric:/IMDB_Fabric");
+            var proxy = ActorProxy.Create<IImdbHub>(id, "fabric:/IMDB_Fabric");
             while (true)
             {
                 try

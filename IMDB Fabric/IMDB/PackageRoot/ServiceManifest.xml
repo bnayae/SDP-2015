@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ServiceManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="IMDBPkg" Version="1.0.0.0" xmlns="http://schemas.microsoft.com/2011/01/fabric">
    <ServiceTypes>
-      <StatelessServiceType ServiceTypeName="OutputPublisherActorServiceType">
+      <StatelessServiceType ServiceTypeName="ImdbHubActorServiceType">
          <Extensions>
             <Extension Name="__GeneratedServiceType__">
                <GeneratedNames xmlns="http://schemas.microsoft.com/2015/03/fabact-no-schema">
-                  <DefaultService Name="OutputPublisherActorService" />
-                  <ServiceEndpoint Name="OutputPublisherActorServiceEndpoint" />
-                  <ReplicatorEndpoint Name="OutputPublisherActorServiceReplicatorEndpoint" />
-                  <ReplicatorConfigSection Name="OutputPublisherActorServiceReplicatorConfig" />
-                  <ReplicatorSecurityConfigSection Name="OutputPublisherActorServiceReplicatorSecurityConfig" />
-                  <StoreConfigSection Name="OutputPublisherActorServiceLocalStoreConfig" />
+                  <DefaultService Name="ImdbHubActorService" />
+                  <ServiceEndpoint Name="ImdbHubActorServiceEndpoint" />
+                  <ReplicatorEndpoint Name="ImdbHubActorServiceReplicatorEndpoint" />
+                  <ReplicatorConfigSection Name="ImdbHubActorServiceReplicatorConfig" />
+                  <ReplicatorSecurityConfigSection Name="ImdbHubActorServiceReplicatorSecurityConfig" />
+                  <StoreConfigSection Name="ImdbHubActorServiceLocalStoreConfig" />
                </GeneratedNames>
             </Extension>
          </Extensions>
@@ -40,7 +40,7 @@
    <ConfigPackage Name="Config" Version="1.0.0.0" />
    <Resources>
       <Endpoints>
-         <Endpoint Name="OutputPublisherActorServiceEndpoint" />
+         <Endpoint Name="ImdbHubActorServiceEndpoint" />
          <Endpoint Name="ImdbActorServiceEndpoint" />
          <Endpoint Name="ImdbActorServiceReplicatorEndpoint" />
       </Endpoints>

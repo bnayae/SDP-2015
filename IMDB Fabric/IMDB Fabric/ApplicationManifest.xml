@@ -14,8 +14,8 @@
     <ConfigOverrides />
   </ServiceManifestImport>
   <DefaultServices>
-    <Service Name="OutputPublisherActorService">
-      <StatelessService ServiceTypeName="OutputPublisherActorServiceType">
+    <Service Name="ImdbHubActorService">
+      <StatelessService ServiceTypeName="ImdbHubActorServiceType">
         <UniformInt64Partition PartitionCount="9" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
       </StatelessService>
     </Service>

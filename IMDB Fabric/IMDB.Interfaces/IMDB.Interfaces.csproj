@@ -62,10 +62,10 @@
     <Reference Include="System.ServiceModel" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Actors Contracts\IOutputPublisher.cs" />
+    <Compile Include="Actors Contracts\IImdbHub.cs" />
     <Compile Include="Actors Contracts\IImdb.cs" />
     <Compile Include="DTOs\Input.cs" />
-    <Compile Include="DTOs\ImdbItemBase.cs" />
+    <Compile Include="DTOs\Profile.cs" />
     <Compile Include="DTOs\Star.cs" />
     <Compile Include="DTOs\Movie.cs" />
     <Compile Include="Events Contracts\IMovieEvent.cs" />

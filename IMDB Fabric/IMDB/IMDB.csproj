@@ -91,7 +91,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Actors\OutputPublisher.cs" />
+    <Compile Include="Actors\ImdbHub.cs" />
     <Compile Include="Actors\Imdb.cs" />
     <Compile Include="Enums\ImdbType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

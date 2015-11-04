@@ -1,0 +1,22 @@
+Power Shell (admin)
+
+	https://msdn.microsoft.com/en-us/library/mt125965.aspx
+
+	Reset installation:
+		CD "C:\Program Files\Microsoft SDKs\Service Fabric\ClusterSetup"
+		CleanCluster.ps1
+		DevClusterSetup.ps1
+
+	Commands 
+		Connect-ServiceFabricCluster
+
+		Get-ServiceFabricClusterHealth [-ApplicationHealthPolicyMap <ApplicationHealthPolicyMap> ] [-ApplicationsHealthStateFilter <Int64]> ] [-ApplicationTypeHealthPolicyMap <System.Fabric.Health.ApplicationTypeHealthPolicyMap> ] [-ConsiderWarningAsError <Boolean]> ] [-EventsHealthStateFilter <Int64]> ] [-MaxPercentUnhealthyApplications <Byte]> ] [-MaxPercentUnhealthyNodes <Byte]> ] [-NodesHealthStateFilter <Int64]> ] [-TimeoutSec <Int32]> ] [ <CommonParameters>]
+
+		Get-ServiceFabricApplication [[-ApplicationName] <Uri> ] [-TimeoutSec <Int32]> ] [ <CommonParameters>]
+		Get-ServiceFabricApplicationHealth [-ApplicationName] <Uri> [-ConsiderWarningAsError <Boolean]> ] [-DeployedApplicationsHealthStateFilter <Int64]> ] [-EventsHealthStateFilter <Int64]> ] [-MaxPercentUnhealthyDeployedApplications <Byte]> ] [-MaxPercentUnhealthyPartitionsPerService <Byte]> ] [-MaxPercentUnhealthyReplicasPerPartition <Byte]> ] [-MaxPercentUnhealthyServices <Byte]> ] [-ServicesHealthStateFilter <Int64]> ] [-TimeoutSec <Int32]> ] [ <CommonParameters>]
+		Get-ServiceFabricServiceHealth [-ServiceName] <Uri> [-ConsiderWarningAsError <Boolean]> ] [-EventsHealthStateFilter <Int64]> ] [-MaxPercentUnhealthyPartitionsPerService <Byte]> ] [-MaxPercentUnhealthyReplicasPerPartition <Byte]> ] [-PartitionsHealthStateFilter <Int64]> ] [-TimeoutSec <Int32]> ] [ <CommonParameters>] 
+
+		Enable-ServiceFabricNode [-NodeName <String> [-TimeoutSec <Int32]> ] [ <CommonParameters>]
+		Disable-ServiceFabricNode [-NodeName] <String> [-Intent] <NodeDeactivationIntent> {Invalid | Pause | Restart | RemoveData} [-Force] [-TimeoutSec <Int32]> ] [-Confirm] [-WhatIf] [ <CommonParameters>]
+
+Cluster Folder = C:\SfDevCluster

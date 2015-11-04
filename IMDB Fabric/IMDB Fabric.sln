@@ -13,6 +13,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMDB_Fabric.Client", "IMDB_
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMDB.Services", "IMDB.Services\IMDB.Services.csproj", "{B170A124-ED62-4697-9746-E37606A785EC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3CB4AADD-6544-4E7B-B776-14D18DF903F3}"
+	ProjectSection(SolutionItems) = preProject
+		LocalDeployInfo.txt = LocalDeployInfo.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64

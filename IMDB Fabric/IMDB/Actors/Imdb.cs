@@ -36,15 +36,17 @@ namespace IMDB
         public async Task Process(Input data)
         {
             var id = new ActorId("PUBLISH"); // should be singleton so the UI can listen to specific actor (like a topic)
-            var actor = ActorProxy.Create<IOutputPublisher>(id);
+            var actor = ActorProxy.Create<IImdbHub>(id);
+            var sender = new Profile(data.UserName, data.UserImageUrl);
+
             switch (State.Type)
             {
                 case ImdbType.Movie:
-                    var m = new Movie(State.Name, State.Date.Year, State.ImageUrl);
+                    var m = new Movie(State.Name, State.Date.Year, State.ImageUrl, sender);
                     await actor.SendMovieAsync(m);
                     break;
                 case ImdbType.Actor:
-                    var star = new Star(State.Name, State.Date, State.ImageUrl);
+                    var star = new Star(State.Name, State.Date, State.ImageUrl, sender);
                     await actor.SendStarAsync(star);
                     break;
                 case ImdbType.Unknown:

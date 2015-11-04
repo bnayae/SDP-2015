@@ -10,7 +10,7 @@ namespace IMDB.Interfaces
     /// <summary>
     ///  Make sure to listen for specific actor
     /// </summary>
-    public interface IOutputPublisher : IActor
+    public interface IImdbHub : IActor
         , IActorEventPublisher<IMovieEvent> 
     {
         Task SendMovieAsync(Movie data);

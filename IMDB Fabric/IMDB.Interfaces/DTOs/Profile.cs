@@ -9,9 +9,9 @@ using System.Runtime.Serialization;
 namespace IMDB.Interfaces
 {
     [DataContract]
-    public abstract class ImdbItemBase
+    public class Profile
     {
-        public ImdbItemBase(string name, string imageUrl)
+        public Profile(string name, string imageUrl)
         {
             Name = name;
             ImageUrl = imageUrl;

@@ -16,7 +16,7 @@ namespace IMDB
                 using (FabricRuntime fabricRuntime = FabricRuntime.Create())
                 {
                     fabricRuntime.RegisterActor(typeof(Imdb));
-                    fabricRuntime.RegisterActor(typeof(OutputPublisher));
+                    fabricRuntime.RegisterActor(typeof(ImdbHub));
 
                     Thread.Sleep(Timeout.Infinite);
                 }

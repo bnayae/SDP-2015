@@ -9,13 +9,22 @@ using System.Runtime.Serialization;
 namespace IMDB.Interfaces
 {
     [DataContract]
-    public class Star : ImdbItemBase
+    public class Star : Profile
     {
-        public Star(string name, DateTime birthdate, string imageUrl)
-            :base(name, imageUrl)
+        public Star(
+            string name, 
+            DateTime birthdate, 
+            string imageUrl,
+            Profile sender = null)
+            : base(name, imageUrl)
         {
             Birthdate = birthdate;
+            Sender = sender;
         }
+
+        [DataMember]
+        public Profile Sender { get; private set; }
+
         [DataMember]
         public DateTime Birthdate { get; private set; }
     }

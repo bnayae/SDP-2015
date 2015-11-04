@@ -24,7 +24,6 @@ namespace IMDB
         private const int DOWNLOAD_TIMEOUT_SEC = 10;
         private Task<Profile> _info;
         private IImdbHub _hub;
-        private IImdbCounter _counter;
 
         public override async Task OnActivateAsync()
         {

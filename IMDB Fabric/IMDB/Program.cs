@@ -17,6 +17,9 @@ namespace IMDB
                 {
                     fabricRuntime.RegisterActor(typeof(Imdb));
                     fabricRuntime.RegisterActor(typeof(ImdbHub));
+                    fabricRuntime.RegisterActor(typeof(ImdbCounter));
+                    fabricRuntime.RegisterActor(typeof(ImdbTopRated));
+                    fabricRuntime.RegisterActor(typeof(ImdbFaults));
 
                     Thread.Sleep(Timeout.Infinite);
                 }

@@ -14,6 +14,21 @@
     <ConfigOverrides />
   </ServiceManifestImport>
   <DefaultServices>
+    <Service Name="ImdbTopRatedActorService">
+      <StatefulService ServiceTypeName="ImdbTopRatedActorServiceType" TargetReplicaSetSize="3" MinReplicaSetSize="2">
+        <UniformInt64Partition PartitionCount="9" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatefulService>
+    </Service>
+    <Service Name="ImdbCounterActorService">
+      <StatefulService ServiceTypeName="ImdbCounterActorServiceType" TargetReplicaSetSize="3" MinReplicaSetSize="2">
+        <UniformInt64Partition PartitionCount="9" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatefulService>
+    </Service>
+    <Service Name="ImdbFaultsActorService">
+      <StatelessService ServiceTypeName="ImdbFaultsActorServiceType">
+        <UniformInt64Partition PartitionCount="9" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatelessService>
+    </Service>
     <Service Name="ImdbHubActorService">
       <StatelessService ServiceTypeName="ImdbHubActorServiceType">
         <UniformInt64Partition PartitionCount="9" LowKey="-9223372036854775808" HighKey="9223372036854775807" />

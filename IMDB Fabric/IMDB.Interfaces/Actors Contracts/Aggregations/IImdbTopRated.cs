@@ -8,13 +8,11 @@ using Microsoft.ServiceFabric.Actors;
 namespace IMDB.Interfaces
 {
     /// <summary>
-    ///  Make sure to listen for specific actor
+    /// Actor Id expected to represent ImdbType's name
     /// </summary>
-    public interface IImdbHub : IActor
-        , IActorEventPublisher<IImdbEvents>
+    public interface IImdbTopRated : IActor, IActorEventPublisher<IImdbTopRatedEvents>
     {
-        Task SendMovieAsync(Movie data);
-        Task SendStarAsync(Star data);
+        Task OferCandidateAsync(ProfileRate profile);
     }
 }
 

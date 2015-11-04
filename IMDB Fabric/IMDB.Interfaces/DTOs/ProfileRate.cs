@@ -9,19 +9,18 @@ using System.Diagnostics;
 
 namespace IMDB.Interfaces
 {
-    [DebuggerDisplay("{Name}: {ImageUrl}")]
+    [DebuggerDisplay("{Name}: {Count}")]
     [DataContract]
-    public class Profile
+    public class ProfileRate: 
+        Profile
     {
-        public Profile(string name, string imageUrl)
+        public ProfileRate(Profile profile, int count)
+            :base(profile.Name, profile.ImageUrl)
         {
-            Name = name;
-            ImageUrl = imageUrl;
+            Count = count;
         }
 
         [DataMember]
-        public string Name { get; private set; }
-        [DataMember]
-        public string ImageUrl { get; private set; }
+        public int Count { get; set; }
     }
 }

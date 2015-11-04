@@ -22,6 +22,9 @@ namespace IMDB
     public class Imdb : Actor<ImdbItemRawState>, IImdb
     {
         private const int DOWNLOAD_TIMEOUT_SEC = 10;
+        private Task<Profile> _info;
+        private IImdbHub _hub;
+        private IImdbCounter _counter;
 
         public override async Task OnActivateAsync()
         {
@@ -30,30 +33,47 @@ namespace IMDB
                 ActorEventSource.Current.ActorMessage(
                     this, $"Loading Data for: {Id.GetStringId()}");
                 await LoadStateAsync();
+                var info = new Profile(State.Name, State.ImageUrl);
+                _info = Task.FromResult(info);
             }
+
+             var id = new ActorId("PUBLISH"); // should be singleton so the UI can listen to specific actor (like a topic)
+            _hub = ActorProxy.Create<IImdbHub>(id);
         }
 
-        public async Task Process(Input data)
+        public Task<Profile> GetInfo() => _info;
+
+        #region Process
+
+        public async Task<bool> TryProcess(Input data)
         {
-            var id = new ActorId("PUBLISH"); // should be singleton so the UI can listen to specific actor (like a topic)
-            var actor = ActorProxy.Create<IImdbHub>(id);
             var sender = new Profile(data.UserName, data.UserImageUrl);
 
+            Profile item;
             switch (State.Type)
             {
                 case ImdbType.Movie:
-                    var m = new Movie(State.Name, State.Date.Year, State.ImageUrl, sender);
-                    await actor.SendMovieAsync(m);
+                    var movie = new Movie(State.Name, State.Date.Year, State.ImageUrl, sender);
+                    await _hub.SendMovieAsync(movie);
+                    item = new Profile(movie.Name, movie.ImageUrl);
                     break;
-                case ImdbType.Actor:
+                case ImdbType.Star:
                     var star = new Star(State.Name, State.Date, State.ImageUrl, sender);
-                    await actor.SendStarAsync(star);
+                    await _hub.SendStarAsync(star);
+                    item = new Profile(star.Name, star.ImageUrl);
                     break;
                 case ImdbType.Unknown:
                 default:
-                    throw new NotSupportedException("Invalid type");
+                    return false; // initialization error
             }
+
+            var counterId = new ActorId(State.Name);
+            var counterProxy = ActorProxy.Create<IImdbCounter>(counterId);
+            await counterProxy.IncrementAsync(State.Type, item);
+            return true;
         }
+
+        #endregion // Process
 
         #region LoadStateAsync
 
@@ -63,9 +83,19 @@ namespace IMDB
         /// <returns></returns>
         private async Task LoadStateAsync()
         {
-            State = new ImdbItemRawState { Url = Id.GetStringId() };
-            string html = await DownloadAsync();
-            ParseAsync(html);
+            try
+            {
+                State = new ImdbItemRawState { Url = Id.GetStringId() };
+                string html = await DownloadAsync();
+                ParseAsync(html);
+            }
+            catch (Exception ex)
+            {
+                ActorEventSource.Current.ActorHostInitializationFailed(ex);
+                var id = new ActorId("PUBLISH");
+                var proxy = ActorProxy.Create<IImdbFaults>(id);
+                await proxy.ReportParsingError(State.Url);
+            }
         }
 
         #endregion // LoadStateAsync
@@ -105,7 +135,7 @@ namespace IMDB
 
             HtmlDocument doc = new HtmlDocument();
             doc.OptionOutputAsXml = true;
-            doc.LoadHtml(html);
+            doc.LoadHtml(html.Trim());
 
             XElement e;
             using (var srm = new MemoryStream())
@@ -128,7 +158,7 @@ namespace IMDB
             if (type == "video.movie")
                 State.Type = ImdbType.Movie;
             else if (type == "actor")
-                State.Type = ImdbType.Actor;
+                State.Type = ImdbType.Star;
             else
                 throw new Exception("Not supported format");
 
@@ -163,7 +193,7 @@ namespace IMDB
                     throw new NullReferenceException("movie's date");
                 State.Date = datePublished;
             }
-            else if (State.Type == ImdbType.Actor)
+            else if (State.Type == ImdbType.Star)
             {
                 string dateText = e.Descendants()
                               .FirstOrDefault(

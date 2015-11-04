@@ -19,19 +19,19 @@ namespace IMDB
             // Clients can listen for the event 
             // (events shouldn't be used for Actor's internal communication)
             // when ready Rx 3 will be the publication mechanism
-            IMovieEvent e = GetEvent<IMovieEvent>();
+            IImdbEvents e = GetEvent<IImdbEvents>();
             e.LikeStar(data);
+
             return Task.CompletedTask;
         }
 
         public Task SendMovieAsync(Movie data)
         {
-            IMovieEvent e = GetEvent<IMovieEvent>();
+            IImdbEvents e = GetEvent<IImdbEvents>();
 
             // Clients can listen for the event 
             // (events shouldn't be used for Actor's internal communication)
             // when ready Rx 3 will be the publication mechanism
-            ActorEventSource.Current.ActorMessage(this, $"Publish ", data.Name);
             e.LikeMovie(data);
             return Task.CompletedTask;
         }

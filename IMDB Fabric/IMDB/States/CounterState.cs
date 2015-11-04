@@ -4,12 +4,14 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Actors;
+using System.Runtime.Serialization;
 
-namespace IMDB.Interfaces
+namespace IMDB
 {
-    public interface IMovieEvent : IActorEvents
+    [DataContract]
+    public class CounterState
     {
-        void LikeMovie(Movie movie);
-        void LikeStar(Star movie);
+        [DataMember]
+        public int Count { get; set; }
     }
 }

@@ -1,6 +1,48 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ServiceManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="IMDBPkg" Version="1.0.0.0" xmlns="http://schemas.microsoft.com/2011/01/fabric">
    <ServiceTypes>
+      <StatefulServiceType ServiceTypeName="ImdbTopRatedActorServiceType" HasPersistedState="true">
+         <Extensions>
+            <Extension Name="__GeneratedServiceType__">
+               <GeneratedNames xmlns="http://schemas.microsoft.com/2015/03/fabact-no-schema">
+                  <DefaultService Name="ImdbTopRatedActorService" />
+                  <ServiceEndpoint Name="ImdbTopRatedActorServiceEndpoint" />
+                  <ReplicatorEndpoint Name="ImdbTopRatedActorServiceReplicatorEndpoint" />
+                  <ReplicatorConfigSection Name="ImdbTopRatedActorServiceReplicatorConfig" />
+                  <ReplicatorSecurityConfigSection Name="ImdbTopRatedActorServiceReplicatorSecurityConfig" />
+                  <StoreConfigSection Name="ImdbTopRatedActorServiceLocalStoreConfig" />
+               </GeneratedNames>
+            </Extension>
+         </Extensions>
+      </StatefulServiceType>
+      <StatefulServiceType ServiceTypeName="ImdbCounterActorServiceType" HasPersistedState="true">
+         <Extensions>
+            <Extension Name="__GeneratedServiceType__">
+               <GeneratedNames xmlns="http://schemas.microsoft.com/2015/03/fabact-no-schema">
+                  <DefaultService Name="ImdbCounterActorService" />
+                  <ServiceEndpoint Name="ImdbCounterActorServiceEndpoint" />
+                  <ReplicatorEndpoint Name="ImdbCounterActorServiceReplicatorEndpoint" />
+                  <ReplicatorConfigSection Name="ImdbCounterActorServiceReplicatorConfig" />
+                  <ReplicatorSecurityConfigSection Name="ImdbCounterActorServiceReplicatorSecurityConfig" />
+                  <StoreConfigSection Name="ImdbCounterActorServiceLocalStoreConfig" />
+               </GeneratedNames>
+            </Extension>
+         </Extensions>
+      </StatefulServiceType>
+      <StatelessServiceType ServiceTypeName="ImdbFaultsActorServiceType">
+         <Extensions>
+            <Extension Name="__GeneratedServiceType__">
+               <GeneratedNames xmlns="http://schemas.microsoft.com/2015/03/fabact-no-schema">
+                  <DefaultService Name="ImdbFaultsActorService" />
+                  <ServiceEndpoint Name="ImdbFaultsActorServiceEndpoint" />
+                  <ReplicatorEndpoint Name="ImdbFaultsActorServiceReplicatorEndpoint" />
+                  <ReplicatorConfigSection Name="ImdbFaultsActorServiceReplicatorConfig" />
+                  <ReplicatorSecurityConfigSection Name="ImdbFaultsActorServiceReplicatorSecurityConfig" />
+                  <StoreConfigSection Name="ImdbFaultsActorServiceLocalStoreConfig" />
+               </GeneratedNames>
+            </Extension>
+         </Extensions>
+      </StatelessServiceType>
       <StatelessServiceType ServiceTypeName="ImdbHubActorServiceType">
          <Extensions>
             <Extension Name="__GeneratedServiceType__">
@@ -40,6 +82,11 @@
    <ConfigPackage Name="Config" Version="1.0.0.0" />
    <Resources>
       <Endpoints>
+         <Endpoint Name="ImdbTopRatedActorServiceEndpoint" />
+         <Endpoint Name="ImdbTopRatedActorServiceReplicatorEndpoint" />
+         <Endpoint Name="ImdbCounterActorServiceEndpoint" />
+         <Endpoint Name="ImdbCounterActorServiceReplicatorEndpoint" />
+         <Endpoint Name="ImdbFaultsActorServiceEndpoint" />
          <Endpoint Name="ImdbHubActorServiceEndpoint" />
          <Endpoint Name="ImdbActorServiceEndpoint" />
          <Endpoint Name="ImdbActorServiceReplicatorEndpoint" />

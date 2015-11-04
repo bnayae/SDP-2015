@@ -10,11 +10,10 @@ namespace IMDB.Interfaces
     /// <summary>
     ///  Make sure to listen for specific actor
     /// </summary>
-    public interface IImdbHub : IActor
-        , IActorEventPublisher<IImdbEvents>
+    public interface IImdbFaults : IActor
+        , IActorEventPublisher<IImdbFaultEvents>
     {
-        Task SendMovieAsync(Movie data);
-        Task SendStarAsync(Star data);
+        Task ReportParsingError(string url);
     }
 }
 

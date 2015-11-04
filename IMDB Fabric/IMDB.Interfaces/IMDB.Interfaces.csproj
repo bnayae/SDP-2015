@@ -62,13 +62,20 @@
     <Reference Include="System.ServiceModel" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actors Contracts\Aggregations\IImdbTopRated.cs" />
+    <Compile Include="Actors Contracts\IImdbFaults.cs" />
     <Compile Include="Actors Contracts\IImdbHub.cs" />
     <Compile Include="Actors Contracts\IImdb.cs" />
+    <Compile Include="Actors Contracts\Aggregations\IImdbCounter.cs" />
     <Compile Include="DTOs\Input.cs" />
+    <Compile Include="DTOs\ProfileRate.cs" />
     <Compile Include="DTOs\Profile.cs" />
     <Compile Include="DTOs\Star.cs" />
     <Compile Include="DTOs\Movie.cs" />
-    <Compile Include="Events Contracts\IMovieEvent.cs" />
+    <Compile Include="Enums\ImdbType.cs" />
+    <Compile Include="Events Contracts\IImdbFaultEvents.cs" />
+    <Compile Include="Events Contracts\IImdbTopRatedEvents.cs" />
+    <Compile Include="Events Contracts\IImdbEvents.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -10,6 +10,7 @@ using LinqToTwitter;
 using Microsoft.Azure;
 using Microsoft.ServiceFabric.Actors;
 using IMDB.Interfaces;
+using System.Diagnostics;
 
 namespace IMDB.Services
 {
@@ -46,7 +47,8 @@ namespace IMDB.Services
 
                 var id = new ActorId(url); // cache process effort by routing to the same actor
                 var proxy = ActorProxy.Create<IImdb>(id, "fabric:/IMDB_Fabric");
-                await proxy.Process(input);
+                if (!await proxy.TryProcess(input))
+                    Trace.WriteLine($"Fault url [{url}]");
             });
 
             await Task.Delay(TimeSpan.MinValue, cancellationToken);

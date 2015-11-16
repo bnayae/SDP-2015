@@ -30,7 +30,7 @@ namespace IMDB
             ProfileRate existing = _topItems.FirstOrDefault(m => m.Name == profile.Name);
             if (existing != null)
             {
-                existing.Count++;
+                existing.Count++; // increment the item which already in the state
                 Publish();
 
                 return Task.CompletedTask;
@@ -48,8 +48,10 @@ namespace IMDB
 
             if (_topItems.Count > LIMIT)
             {
-                var last = _topItems.Last();
-                _topItems.Remove(barierProfile);
+                var removeCandidate = 
+                    _topItems.OrderBy(m => m.Count)
+                             .First();
+                _topItems.Remove(removeCandidate);
             }
 
             State = _topItems.ToArray();

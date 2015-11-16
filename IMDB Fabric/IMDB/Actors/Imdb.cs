@@ -42,7 +42,7 @@ namespace IMDB
 
         public Task<Profile> GetInfo() => _info;
 
-        #region Process
+        #region TryProcess
 
         public async Task<bool> TryProcess(Input data)
         {
@@ -72,7 +72,7 @@ namespace IMDB
             return true;
         }
 
-        #endregion // Process
+        #endregion // TryProcess
 
         #region LoadStateAsync
 

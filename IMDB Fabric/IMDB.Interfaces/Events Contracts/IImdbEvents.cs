@@ -10,6 +10,6 @@ namespace IMDB.Interfaces
     public interface IImdbEvents : IActorEvents
     {
         void LikeMovie(Movie movie);
-        void LikeStar(Star movie);
+        void LikeStar(Star star);
     }
 }

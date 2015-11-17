@@ -1,0 +1,74 @@
+﻿<Window x:Class="IMDB_Fabric.Client.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:IMDB_Fabric.Client.WPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.DataContext>
+        <local:MainViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <ItemsControl Grid.Row="0"
+                      Grid.Column="0"
+                      Grid.RowSpan="2"
+                      ItemsSource="{Binding Events}"
+                      Background="LightGreen">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{Binding Sender.ImageUrl}" Margin="5"/>
+
+                        <Image Source="{Binding ImageUrl}" Margin="5"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <ItemsControl Grid.Row="0"
+                      Grid.Column="1"
+                      ItemsSource="{Binding MoviesRates}"
+                      Background="LightBlue">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{Binding ImageUrl}" Margin="5"/>
+
+                        <TextBlock Margin="5">
+                            <Run Text="{Binding Name, Mode=OneWay}"/>
+                            <Run Text="{Binding Count, Mode=OneWay}"/>
+                        </TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <ItemsControl Grid.Row="1"
+                      Grid.Column="1"
+                      ItemsSource="{Binding StarsRates}"
+                      Background="LightPink">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{Binding ImageUrl}" Margin="5"/>
+
+                        <TextBlock Margin="5">
+                            <Run Text="{Binding Name, Mode=OneWay}"/>
+                            <Run Text="{Binding Count, Mode=OneWay}"/>
+                        </TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</Window>

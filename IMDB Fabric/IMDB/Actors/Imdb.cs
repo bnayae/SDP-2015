@@ -19,15 +19,15 @@ namespace IMDB
     /// meant to be instantiate with instance per URL (Actor Id)
     /// </summary>
     [VolatileActorStateProvider] // replicate in memory state
-    public class Imdb : Actor<ImdbItemRawState>, IImdb
+    public class Imdb : StatefulActor<ImdbItemRawState>, IImdb
     {
         private const int DOWNLOAD_TIMEOUT_SEC = 10;
         private Task<Profile> _info;
         private IImdbHub _hub;
 
-        public override async Task OnActivateAsync()
+        protected override async Task OnActivateAsync()
         {
-            if (State.Name == null)
+            if (State == null)
             {
                 ActorEventSource.Current.ActorMessage(
                     this, $"Loading Data for: {Id.GetStringId()}");

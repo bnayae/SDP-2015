@@ -1,48 +1,59 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ApplicationManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ApplicationTypeName="IMDB_FabricType" ApplicationTypeVersion="1.0.0.0" xmlns="http://schemas.microsoft.com/2011/01/fabric">
-  <Parameters>
-    <Parameter Name="TwitterServices_InstanceCount" DefaultValue="1" />
-    <Parameter Name="Services_MinReplicaSetSize" DefaultValue="2" />
-    <Parameter Name="Services_PartitionCount" DefaultValue="1" />
-    <Parameter Name="Services_TargetReplicaSetSize" DefaultValue="3" />
-  </Parameters>
-  <ServiceManifestImport>
-    <ServiceManifestRef ServiceManifestName="IMDBPkg" ServiceManifestVersion="1.0.0.0" />
-  </ServiceManifestImport>
-  <ServiceManifestImport>
-    <ServiceManifestRef ServiceManifestName="IMDB.ServicesPkg" ServiceManifestVersion="1.0.0.0" />
-    <ConfigOverrides />
-  </ServiceManifestImport>
-  <DefaultServices>
-    <Service Name="ImdbTopRatedActorService">
-      <StatefulService ServiceTypeName="ImdbTopRatedActorServiceType" TargetReplicaSetSize="3" MinReplicaSetSize="2">
-        <UniformInt64Partition PartitionCount="9" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
-      </StatefulService>
-    </Service>
-    <Service Name="ImdbCounterActorService">
-      <StatefulService ServiceTypeName="ImdbCounterActorServiceType" TargetReplicaSetSize="3" MinReplicaSetSize="2">
-        <UniformInt64Partition PartitionCount="9" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
-      </StatefulService>
-    </Service>
-    <Service Name="ImdbFaultsActorService">
-      <StatelessService ServiceTypeName="ImdbFaultsActorServiceType">
-        <UniformInt64Partition PartitionCount="9" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
-      </StatelessService>
-    </Service>
-    <Service Name="ImdbHubActorService">
-      <StatelessService ServiceTypeName="ImdbHubActorServiceType">
-        <UniformInt64Partition PartitionCount="9" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
-      </StatelessService>
-    </Service>
-    <Service Name="ImdbActorService">
-      <StatefulService ServiceTypeName="ImdbActorServiceType" TargetReplicaSetSize="3" MinReplicaSetSize="2">
-        <UniformInt64Partition PartitionCount="9" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
-      </StatefulService>
-    </Service>
-    <Service Name="Services">
-      <StatelessService ServiceTypeName="TwitterServicesType" InstanceCount="[TwitterServices_InstanceCount]">
-        <SingletonPartition />
-      </StatelessService>
-    </Service>
-  </DefaultServices>
+<ApplicationManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ApplicationTypeName="IMDB_FabricType" ApplicationTypeVersion="1.0.0.1" xmlns="http://schemas.microsoft.com/2011/01/fabric">
+   <Parameters>
+      <Parameter Name="ImdbTopRatedActorService_PartitionCount" DefaultValue="10" />
+      <Parameter Name="ImdbTopRatedActorService_MinReplicaSetSize" DefaultValue="2" />
+      <Parameter Name="ImdbTopRatedActorService_TargetReplicaSetSize" DefaultValue="3" />
+      <Parameter Name="ImdbCounterActorService_PartitionCount" DefaultValue="10" />
+      <Parameter Name="ImdbCounterActorService_MinReplicaSetSize" DefaultValue="2" />
+      <Parameter Name="ImdbCounterActorService_TargetReplicaSetSize" DefaultValue="3" />
+      <Parameter Name="ImdbFaultsActorService_PartitionCount" DefaultValue="10" />
+      <Parameter Name="ImdbHubActorService_PartitionCount" DefaultValue="10" />
+      <Parameter Name="ImdbActorService_PartitionCount" DefaultValue="10" />
+      <Parameter Name="ImdbActorService_MinReplicaSetSize" DefaultValue="2" />
+      <Parameter Name="ImdbActorService_TargetReplicaSetSize" DefaultValue="3" />
+      <Parameter Name="TwitterServices_InstanceCount" DefaultValue="1" />
+      <Parameter Name="Services_MinReplicaSetSize" DefaultValue="2" />
+      <Parameter Name="Services_PartitionCount" DefaultValue="1" />
+      <Parameter Name="Services_TargetReplicaSetSize" DefaultValue="3" />
+   </Parameters>
+   <ServiceManifestImport>
+      <ServiceManifestRef ServiceManifestName="IMDBPkg" ServiceManifestVersion="1.0.0.1" />
+   </ServiceManifestImport>
+   <ServiceManifestImport>
+      <ServiceManifestRef ServiceManifestName="IMDB.ServicesPkg" ServiceManifestVersion="1.0.0.1" />
+      <ConfigOverrides />
+   </ServiceManifestImport>
+   <DefaultServices>
+      <Service Name="ImdbTopRatedActorService" GeneratedIdRef="a8f2ad97-a91e-4498-b4bc-e9f33d613064">
+         <StatefulService ServiceTypeName="ImdbTopRatedActorServiceType" TargetReplicaSetSize="3" MinReplicaSetSize="2">
+            <UniformInt64Partition PartitionCount="9" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+         </StatefulService>
+      </Service>
+      <Service Name="ImdbCounterActorService" GeneratedIdRef="57621f46-7eb1-4653-a2aa-a767b207984a">
+         <StatefulService ServiceTypeName="ImdbCounterActorServiceType" TargetReplicaSetSize="3" MinReplicaSetSize="2">
+            <UniformInt64Partition PartitionCount="9" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+         </StatefulService>
+      </Service>
+      <Service Name="ImdbFaultsActorService" GeneratedIdRef="ce0dead9-0c46-41d7-b6fc-4fa57af7e11a">
+         <StatelessService ServiceTypeName="ImdbFaultsActorServiceType">
+            <UniformInt64Partition PartitionCount="9" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+         </StatelessService>
+      </Service>
+      <Service Name="ImdbHubActorService" GeneratedIdRef="af7719a8-9789-4b52-b585-35c532dc6a56">
+         <StatelessService ServiceTypeName="ImdbHubActorServiceType">
+            <UniformInt64Partition PartitionCount="9" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+         </StatelessService>
+      </Service>
+      <Service Name="ImdbActorService" GeneratedIdRef="3f15c930-0581-431f-8544-6f1cfc6f6851">
+         <StatefulService ServiceTypeName="ImdbActorServiceType" TargetReplicaSetSize="3" MinReplicaSetSize="2">
+            <UniformInt64Partition PartitionCount="9" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+         </StatefulService>
+      </Service>
+      <Service Name="Services">
+         <StatelessService ServiceTypeName="TwitterServicesType" InstanceCount="[TwitterServices_InstanceCount]">
+            <SingletonPartition />
+         </StatelessService>
+      </Service>
+   </DefaultServices>
 </ApplicationManifest>

@@ -11,7 +11,9 @@
     </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -19,30 +21,47 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <ItemsControl Grid.Row="0"
+        <TextBlock Grid.Row="0"
+                   Grid.Column="0"
+                   TextAlignment="Center"
+                   FontSize="30"
+                   FontWeight="ExtraBlack"
+                   Text="Application Events" />
+                   
+        <ItemsControl Grid.Row="1"
                       Grid.Column="0"
-                      Grid.RowSpan="2"
+                      Grid.RowSpan="3"
                       ItemsSource="{Binding Events}"
                       Background="LightGreen">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="{Binding Sender.ImageUrl}" Margin="5"/>
+                        <TextBlock Text="{Binding Name}" />
+                        <Image Source="{Binding ImageUrl}" Margin="5" Height="70" />
 
-                        <Image Source="{Binding ImageUrl}" Margin="5"/>
+                        <TextBlock Text="{Binding Sender.Name}" />
+                        <Image Source="{Binding Sender.ImageUrl}" Margin="5" Height="70" />
                     </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
 
-        <ItemsControl Grid.Row="0"
+        <TextBlock Grid.Row="0"
+                   Grid.Column="1"
+                   TextAlignment="Center"
+                   FontSize="30"
+                   FontWeight="ExtraBlack"
+                   Text="Top 10 Movies" />
+        
+        <ItemsControl Grid.Row="1"
                       Grid.Column="1"
                       ItemsSource="{Binding MoviesRates}"
                       Background="LightBlue">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="{Binding ImageUrl}" Margin="5"/>
+                        <TextBlock Text="{Binding Name}" />
+                        <Image Source="{Binding ImageUrl}" Margin="5" Height="70"/>
 
                         <TextBlock Margin="5">
                             <Run Text="{Binding Name, Mode=OneWay}"/>
@@ -53,14 +72,22 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
 
-        <ItemsControl Grid.Row="1"
+        <TextBlock Grid.Row="2"
+                   Grid.Column="1"
+                   TextAlignment="Center"
+                   FontSize="30"
+                   FontWeight="ExtraBlack"
+                   Text="Top 10 Stars" />
+
+        <ItemsControl Grid.Row="3"
                       Grid.Column="1"
                       ItemsSource="{Binding StarsRates}"
                       Background="LightPink">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="{Binding ImageUrl}" Margin="5"/>
+                        <TextBlock Text="{Binding Name}" />
+                        <Image Source="{Binding ImageUrl}" Margin="5" Height="70"/>
 
                         <TextBlock Margin="5">
                             <Run Text="{Binding Name, Mode=OneWay}"/>

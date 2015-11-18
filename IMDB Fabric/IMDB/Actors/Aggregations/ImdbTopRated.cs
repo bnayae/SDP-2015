@@ -10,13 +10,13 @@ using Microsoft.ServiceFabric.Actors.Communication;
 
 namespace IMDB
 {
-    public class ImdbTopRated : Actor<ProfileRate[]>, IImdbTopRated
+    public class ImdbTopRated : StatefulActor<ProfileRate[]>, IImdbTopRated
     {
         private const int LIMIT = 3;
         private ImdbType _type;
 
         private List<ProfileRate> _topItems;
-        public override Task OnActivateAsync()
+        protected override Task OnActivateAsync()
         {
             if (!Enum.TryParse(Id.ToString(), out _type))
                 throw new NotSupportedException($"Id expected to represent {nameof(ImdbType)}");

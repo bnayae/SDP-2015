@@ -89,12 +89,18 @@ namespace IMDB_Fabric.Client.WPF
 
         public void LikeMovie(Movie movie)
         {
-            Events.Add(movie);
+            App.Current.Dispatcher.Invoke(() =>
+            {
+                Events.Add(movie);
+            });
         }
 
         public void LikeStar(Star star)
         {
-            Events.Add(star);
+            App.Current.Dispatcher.Invoke(() =>
+            {
+                Events.Add(star);
+            });
         }
 
         public void Changed(ImdbType type, ProfileRate[] items)

@@ -15,11 +15,11 @@ namespace IMDB
             {
                 using (FabricRuntime fabricRuntime = FabricRuntime.Create())
                 {
-                    fabricRuntime.RegisterActor(typeof(Imdb));
-                    fabricRuntime.RegisterActor(typeof(ImdbHub));
-                    fabricRuntime.RegisterActor(typeof(ImdbCounter));
-                    fabricRuntime.RegisterActor(typeof(ImdbTopRated));
-                    fabricRuntime.RegisterActor(typeof(ImdbFaults));
+                    fabricRuntime.RegisterActor<Imdb>();
+                    fabricRuntime.RegisterActor<ImdbHub>();
+                    fabricRuntime.RegisterActor<ImdbCounter>();
+                    fabricRuntime.RegisterActor<ImdbTopRated>();
+                    fabricRuntime.RegisterActor<ImdbFaults>();
 
                     Thread.Sleep(Timeout.Infinite);
                 }

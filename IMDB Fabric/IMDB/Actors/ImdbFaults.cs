@@ -10,7 +10,7 @@ using Microsoft.ServiceFabric.Actors.Communication;
 
 namespace IMDB
 {
-    public class ImdbFaults : Actor, IImdbFaults
+    public class ImdbFaults : StatelessActor, IImdbFaults
     {
         public Task ReportParsingError(string url)
         {

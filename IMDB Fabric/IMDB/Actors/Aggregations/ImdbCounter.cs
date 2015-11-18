@@ -14,10 +14,13 @@ namespace IMDB
     /// Counter of Movie or Star
     /// the Actor Id expected to be ImdbType as long
     /// </summary>
-    public class ImdbCounter : Actor<CounterState>, IImdbCounter
+    public class ImdbCounter : StatefulActor<CounterState>, IImdbCounter
     {
-        public override Task OnActivateAsync()
+        protected override Task OnActivateAsync()
         {
+            if (State == null)
+                State = new CounterState();
+
             if (Id.Kind != ActorIdKind.String)
                 throw new NotSupportedException("Id should be either the Star or Movie name ");
             return base.OnActivateAsync();

@@ -10,7 +10,7 @@ using Microsoft.ServiceFabric.Actors.Communication;
 
 namespace IMDB
 {
-    public class ImdbHub : Actor, IImdbHub
+    public class ImdbHub : StatelessActor, IImdbHub
     {
         public Task SendStarAsync(Star data)
         {

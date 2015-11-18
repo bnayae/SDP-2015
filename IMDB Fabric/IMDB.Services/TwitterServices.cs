@@ -11,15 +11,17 @@ using Microsoft.Azure;
 using Microsoft.ServiceFabric.Actors;
 using IMDB.Interfaces;
 using System.Diagnostics;
+using Microsoft.ServiceFabric.Services.Runtime;
+using Microsoft.ServiceFabric.Services.Communication.Runtime;
 
 namespace IMDB.Services
 {
     public class TwitterServices : StatelessService
     {
-        protected override ICommunicationListener CreateCommunicationListener()
+        protected override IEnumerable<ServiceInstanceListener> CreateServiceInstanceListeners()
         {
             // TODO: Replace this with an ICommunicationListener implementation if your service needs to handle user requests.
-            return base.CreateCommunicationListener();
+            return base.CreateServiceInstanceListeners();
         }
         
         protected override async Task RunAsync(

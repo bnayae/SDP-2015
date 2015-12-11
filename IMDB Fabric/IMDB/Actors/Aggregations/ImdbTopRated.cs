@@ -33,7 +33,7 @@ namespace IMDB
                 existing.Count++; // increment the item which already in the state
                 Publish();
 
-                return Task.CompletedTask;
+                return Task.FromResult(0);
             }
 
             ProfileRate barierProfile = _topItems
@@ -42,7 +42,7 @@ namespace IMDB
             int barier = barierProfile?.Count ?? 0;
 
             if (_topItems.Count == LIMIT && profile.Count <= barier)
-                return Task.CompletedTask;
+                return Task.FromResult(0);
 
             _topItems.Add(profile);
 
@@ -58,7 +58,7 @@ namespace IMDB
 
             Publish();
 
-            return Task.CompletedTask;
+            return Task.FromResult(0);
         }
 
         private void Publish()

@@ -20,7 +20,7 @@ namespace IMDB
             // (events shouldn't be used for Actor's internal communication)
             // when ready Rx 3 will be the publication mechanism
             e.ParserError(url);
-            return Task.CompletedTask;
+            return Task.FromResult(0);
         }
     }
 }

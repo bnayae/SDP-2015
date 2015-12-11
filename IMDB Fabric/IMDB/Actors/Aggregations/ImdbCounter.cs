@@ -38,7 +38,7 @@ namespace IMDB
             var proxy = ActorProxy.Create<IImdbTopRated>(id);
             proxy.OferCandidateAsync(rate);
 
-            return Task.CompletedTask;
+            return Task.FromResult(0);
         }
     }
 }

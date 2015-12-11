@@ -22,7 +22,7 @@ namespace IMDB
             IImdbEvents e = GetEvent<IImdbEvents>();
             e.LikeStar(data);
 
-            return Task.CompletedTask;
+            return Task.FromResult(0);
         }
 
         public Task SendMovieAsync(Movie data)
@@ -33,7 +33,7 @@ namespace IMDB
             // (events shouldn't be used for Actor's internal communication)
             // when ready Rx 3 will be the publication mechanism
             e.LikeMovie(data);
-            return Task.CompletedTask;
+            return Task.FromResult(0);
         }
     }
 }

@@ -18,6 +18,9 @@
       <Parameter Name="Services_TargetReplicaSetSize" DefaultValue="3" />
    </Parameters>
    <ServiceManifestImport>
+      <ServiceManifestRef ServiceManifestName="IMDB_Hub" ServiceManifestVersion="1.0.0" />
+   </ServiceManifestImport>
+   <ServiceManifestImport>
       <ServiceManifestRef ServiceManifestName="IMDBPkg" ServiceManifestVersion="1.0.0.1" />
    </ServiceManifestImport>
    <ServiceManifestImport>
@@ -25,6 +28,11 @@
       <ConfigOverrides />
    </ServiceManifestImport>
    <DefaultServices>
+      <Service Name="IMDB_HubService">
+         <StatelessService ServiceTypeName="IMDB_HubType">
+            <SingletonPartition />
+         </StatelessService>
+      </Service>
       <Service Name="ImdbTopRatedActorService" GeneratedIdRef="a8f2ad97-a91e-4498-b4bc-e9f33d613064">
          <StatefulService ServiceTypeName="ImdbTopRatedActorServiceType" TargetReplicaSetSize="3" MinReplicaSetSize="2">
             <UniformInt64Partition PartitionCount="9" LowKey="-9223372036854775808" HighKey="9223372036854775807" />

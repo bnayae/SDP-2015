@@ -23,7 +23,11 @@
     },
 
     "frameworks": {
-        "dnx451": { }
+      "dnx451": {
+        "dependencies": {
+          "IMDB.Interfaces": "1.0.0-*"
+        }
+      }
     },
 
     "exclude": [

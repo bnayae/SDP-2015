@@ -16,5 +16,8 @@
     <UpdateServiceFabricManifestEnabled>true</UpdateServiceFabricManifestEnabled>
     <ServiceFabricServiceManifestPath>PackageRoot\ServiceManifest.xml</ServiceFabricServiceManifestPath>
   </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IMDB.Interfaces\IMDB.Interfaces.csproj" />
+  </ItemGroup>
   <Import Project="$(VSToolsPath)\DNX\Microsoft.DNX.targets" Condition="'$(VSToolsPath)' != ''" />
 </Project>

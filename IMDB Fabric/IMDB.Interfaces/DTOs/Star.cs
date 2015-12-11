@@ -11,6 +11,9 @@ namespace IMDB.Interfaces
     [DataContract]
     public class Star : Profile
     {
+        [Obsolete("for json serialization", true)]
+        public Star(): base("", "") { }
+
         public Star(
             string name, 
             DateTime birthdate, 

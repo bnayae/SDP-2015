@@ -16,6 +16,10 @@
       <Parameter Name="Services_MinReplicaSetSize" DefaultValue="2" />
       <Parameter Name="Services_PartitionCount" DefaultValue="1" />
       <Parameter Name="Services_TargetReplicaSetSize" DefaultValue="3" />
+      <Parameter Name="TwitterHubServices_InstanceCount" DefaultValue="1" />
+      <Parameter Name="HubServices_MinReplicaSetSize" DefaultValue="2" />
+      <Parameter Name="HubServices_PartitionCount" DefaultValue="1" />
+      <Parameter Name="HubServices_TargetReplicaSetSize" DefaultValue="3" />
    </Parameters>
    <ServiceManifestImport>
       <ServiceManifestRef ServiceManifestName="IMDBPkg" ServiceManifestVersion="1.0.0.1" />
@@ -52,6 +56,11 @@
       </Service>
       <Service Name="Services">
          <StatelessService ServiceTypeName="TwitterServicesType" InstanceCount="[TwitterServices_InstanceCount]">
+            <SingletonPartition />
+         </StatelessService>
+      </Service>
+      <Service Name="HubServices">
+         <StatelessService ServiceTypeName="TwitterHubServicesType" InstanceCount="[TwitterHubServices_InstanceCount]">
             <SingletonPartition />
          </StatelessService>
       </Service>

@@ -17,8 +17,10 @@ namespace IMDB.Services
                     // This name must match the name defined in the ServiceManifest. If you change
                     // this name, please change the name of the ServiceType in the ServiceManifest.
                     fabricRuntime.RegisterServiceType("TwitterServicesType", typeof(TwitterServices));
-
                     ServiceEventSource.Current.ServiceTypeRegistered(Process.GetCurrentProcess().Id, typeof(TwitterServices).Name);
+
+                    fabricRuntime.RegisterServiceType("TwitterHubServicesType", typeof(TwitterHubServices));
+                    ServiceEventSource.Current.ServiceTypeRegistered(Process.GetCurrentProcess().Id, typeof(TwitterHubServices).Name);
 
                     Thread.Sleep(Timeout.Infinite);
                 }

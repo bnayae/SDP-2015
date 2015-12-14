@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24627.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{A07B5EB6-E848-4116-A8D0-A826331D98C6}") = "IMDB_Fabric", "IMDB Fabric\IMDB_Fabric.sfproj", "{19EA3E58-880A-4BD3-A433-8761FD6A5EBF}"
 EndProject

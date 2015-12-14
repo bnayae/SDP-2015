@@ -14,6 +14,11 @@ namespace IMDB.Interfaces
     public class ProfileRate: 
         Profile
     {
+        [Obsolete("For serialization", true)]
+        public ProfileRate(): base(null, null)
+        {
+        }
+
         public ProfileRate(Profile profile, int count)
             :base(profile.Name, profile.ImageUrl)
         {

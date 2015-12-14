@@ -11,6 +11,9 @@ namespace IMDB.Interfaces
     [DataContract]
     public class Movie: Profile
     {
+        [Obsolete("for json serialization", true)]
+        public Movie(): base("", "") { }
+
         public Movie(
             string name, 
             int year, 

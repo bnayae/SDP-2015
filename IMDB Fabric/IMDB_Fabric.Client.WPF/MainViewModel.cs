@@ -91,7 +91,7 @@ namespace IMDB_Fabric.Client.WPF
         {
             App.Current.Dispatcher.Invoke(() =>
             {
-                Events.Add(movie);
+                Events.Insert(0, movie);
             });
         }
 
@@ -99,7 +99,7 @@ namespace IMDB_Fabric.Client.WPF
         {
             App.Current.Dispatcher.Invoke(() =>
             {
-                Events.Add(star);
+                Events.Insert(0, star);
             });
         }
 
@@ -122,7 +122,7 @@ namespace IMDB_Fabric.Client.WPF
 
         public void ParserError(string url)
         {
-            
+
         }
     }
 }

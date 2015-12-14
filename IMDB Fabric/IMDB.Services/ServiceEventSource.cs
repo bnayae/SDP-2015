@@ -104,5 +104,16 @@ namespace IMDB.Services
         {
             WriteEvent(4, exception);
         }
+
+        public void ErrorMessage(Exception exception)
+        {
+            ErrorMessage(exception.ToString());
+        }
+
+        [Event(5, Level = EventLevel.Error, Message = "Error")]
+        private void ErrorMessage(string exception)
+        {
+            WriteEvent(5, exception);
+        }
     }
 }

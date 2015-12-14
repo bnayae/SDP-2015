@@ -9,11 +9,15 @@ using System.Threading.Tasks;
 using IMDB;
 using System.Collections.ObjectModel;
 using Microsoft.ServiceFabric.Actors;
+using Microsoft.AspNet.SignalR.Client;
+using System.Configuration;
 
 namespace IMDB_Fabric.Client.WPF
 {
-    public class MainViewModel : IImdbEvents, IImdbTopRatedEvents, IImdbFaultEvents, INotifyPropertyChanged
+    public class MainViewModel : INotifyPropertyChanged
     {
+        private IHubProxy _hubProxy;
+
         #region INotifyPropertyChanged Implementation
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -59,32 +63,15 @@ namespace IMDB_Fabric.Client.WPF
 
         private async Task Initialize()
         {
-            var hubId = new ActorId("PUBLISH");// Kind of topic;
-            var movieId = new ActorId(ImdbType.Movie.ToString());// Kind of topic;
-            var starId = new ActorId(ImdbType.Star.ToString());// Kind of topic;
-            var proxyHub = ActorProxy.Create<IImdbHub>(hubId, "fabric:/IMDB_Fabric");
-            var proxyTopMovie = ActorProxy.Create<IImdbTopRated>(movieId, "fabric:/IMDB_Fabric");
-            var proxyTopStar = ActorProxy.Create<IImdbTopRated>(starId, "fabric:/IMDB_Fabric");
-            var proxyFaults = ActorProxy.Create<IImdbFaults>(hubId, "fabric:/IMDB_Fabric");
-            while (true)
-            {
-                try
-                {
-                    await proxyHub.SubscribeAsync<IImdbEvents>(this);
-                    await proxyFaults.SubscribeAsync<IImdbFaultEvents>(this);
-                    await proxyTopMovie.SubscribeAsync<IImdbTopRatedEvents>(this);
-                    await proxyTopStar.SubscribeAsync<IImdbTopRatedEvents>(this);
-                    Console.WriteLine("Ready");
-                    break;
-                }
-                catch (Exception)
-                {
-                    var actorRef = proxyHub.GetActorReference();
-                    var uri = actorRef?.ServiceUri;
-                    Console.WriteLine($"Wait for: {uri}");
-                    await Task.Delay(2000);
-                }
-            }
+            string baseUrl = ConfigurationManager.AppSettings["base-url"];
+            string url = $"http://{baseUrl}/imdb";
+            var hubConnection = new HubConnection(url);
+            _hubProxy = hubConnection.CreateHubProxy(Constants.HubName);
+            _hubProxy.On<Movie>("BroadcastLikeMovie", LikeMovie);
+            _hubProxy.On<Star>("BroadcastLikeStar", LikeStar);
+            _hubProxy.On<ImdbType, ProfileRate[]>("BroadcastChanged", Changed);
+            _hubProxy.On<string>("BroadcastParserError",ParserError);
+            await hubConnection.Start();
         }
 
         public void LikeMovie(Movie movie)
@@ -122,7 +109,7 @@ namespace IMDB_Fabric.Client.WPF
 
         public void ParserError(string url)
         {
-            
+
         }
     }
 }

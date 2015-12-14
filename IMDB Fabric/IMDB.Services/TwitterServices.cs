@@ -18,12 +18,8 @@ namespace IMDB.Services
 {
     public class TwitterServices : StatelessService
     {
-        protected override IEnumerable<ServiceInstanceListener> CreateServiceInstanceListeners()
-        {
-            // TODO: Replace this with an ICommunicationListener implementation if your service needs to handle user requests.
-            return base.CreateServiceInstanceListeners();
-        }
-        
+        #region RunAsync
+
         protected override async Task RunAsync(
             CancellationToken cancellationToken)
         {
@@ -36,6 +32,10 @@ namespace IMDB.Services
                          where srm.Type == StreamingType.Filter &&
                                 srm.Track == "sdpf"
                          select srm;
+
+            cancellationToken.Register(
+                () => Environment.Exit(-1));
+
             await stream.StartAsync(async context =>
             {
                 if (context.Entity == null && context.EntityType != StreamEntityType.Status)
@@ -55,8 +55,12 @@ namespace IMDB.Services
                     Trace.WriteLine($"Fault url [{url}]");
             });
 
-            await Task.Delay(TimeSpan.MinValue, cancellationToken);
+            await Task.Delay(TimeSpan.FromSeconds(0.5), cancellationToken);
         }
+
+        #endregion // RunAsync 
+
+        #region ClearOldTwits
 
         private static async Task ClearOldTwits(TwitterContext twitterCtx)
         {
@@ -68,6 +72,8 @@ namespace IMDB.Services
                       select twitterCtx.DeleteTweetAsync(id);
             await Task.WhenAll(tasks);
         }
+
+        #endregion // ClearOldTwits
 
         #region AuthorizeAsync
 

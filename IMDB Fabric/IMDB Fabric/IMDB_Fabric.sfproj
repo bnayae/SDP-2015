@@ -13,7 +13,6 @@
   <ItemGroup>
     <ProjectReference Include="..\IMDB.Services\IMDB.Services.csproj" />
     <ProjectReference Include="..\IMDB\IMDB.csproj" />
-    <ProjectReference Include="..\IMDB_Hub\IMDB_Hub.xproj" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ApplicationParameters\Cloud.xml" />

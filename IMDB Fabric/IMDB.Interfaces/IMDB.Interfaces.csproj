@@ -70,6 +70,7 @@
     <Compile Include="Actors Contracts\IImdbHub.cs" />
     <Compile Include="Actors Contracts\IImdb.cs" />
     <Compile Include="Actors Contracts\Aggregations\IImdbCounter.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="DTOs\Input.cs" />
     <Compile Include="DTOs\ProfileRate.cs" />
     <Compile Include="DTOs\Profile.cs" />

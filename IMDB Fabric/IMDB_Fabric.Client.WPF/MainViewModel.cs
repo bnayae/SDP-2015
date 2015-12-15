@@ -86,14 +86,14 @@ namespace IMDB_Fabric.Client.WPF
             string url = $"http://{baseUrl}/imdb";
             var hubConnection = new HubConnection(url);
             _hubProxy = hubConnection.CreateHubProxy(Constants.HubName);
-            _hubProxy.On<Movie>("BroadcastLikeMovie", LikeMovie);
-            _hubProxy.On<Star>("BroadcastLikeStar", LikeStar);
+            _hubProxy.On<TwittData >("BroadcastLikeMovie", LikeMovie);
+            _hubProxy.On<TwittData>("BroadcastLikeStar", LikeStar);
             _hubProxy.On<ChangedData>("BroadcastChanged", Changed);
             _hubProxy.On<string>("BroadcastParserError", ParserError);
             await hubConnection.Start();
         }
 
-        public void LikeMovie(Movie movie)
+        public void LikeMovie(TwittData  movie)
         {
             App.Current.Dispatcher.Invoke(() =>
             {
@@ -101,7 +101,7 @@ namespace IMDB_Fabric.Client.WPF
             });
         }
 
-        public void LikeStar(Star star)
+        public void LikeStar(TwittData star)
         {
             App.Current.Dispatcher.Invoke(() =>
             {

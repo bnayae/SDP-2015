@@ -9,26 +9,20 @@ using System.Runtime.Serialization;
 namespace IMDB.Interfaces
 {
     [DataContract]
-    public class Star : Profile
+    public class TwittData : Profile
     {
         [Obsolete("for json serialization", true)]
-        public Star(): base("", "") { }
+        public TwittData(): base("", "") { }
 
-        public Star(
-            string name, 
-            DateTime birthdate, 
-            string imageUrl,
+        public TwittData(
+            Profile data,
             Profile sender = null)
-            : base(name, imageUrl)
+            : base(data.Name, data.ImageUrl)
         {
-            Birthdate = birthdate;
             Sender = sender;
         }
 
         [DataMember]
         public Profile Sender { get; private set; }
-
-        [DataMember]
-        public DateTime Birthdate { get; private set; }
     }
 }

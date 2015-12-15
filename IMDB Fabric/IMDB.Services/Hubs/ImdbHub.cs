@@ -11,7 +11,7 @@
     [HubName(Constants.HubName)]
     public class ImdbHub : Hub
     {
-        public void LikeMovie(Movie movie)
+        public void LikeMovie(TwittData  movie)
         {
             try
             {
@@ -27,7 +27,7 @@
             #endregion // Exception Handling
         }
 
-        public void LikeStar(Star star)
+        public void LikeStar(TwittData star)
         {
             try
             {

@@ -123,7 +123,7 @@ namespace IMDB.Services
 
         #region LikeMovie
 
-        public async void LikeMovie(Movie movie)
+        public async void LikeMovie(TwittData  movie)
         {
             await NotifyAsync(nameof(ImdbHub.LikeMovie), movie);
         }
@@ -132,7 +132,7 @@ namespace IMDB.Services
 
         #region LikeStar
 
-        public async void LikeStar(Star star)
+        public async void LikeStar(TwittData star)
         {
             await NotifyAsync(nameof(ImdbHub.LikeStar), star);
         }

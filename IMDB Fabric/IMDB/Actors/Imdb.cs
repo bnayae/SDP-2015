@@ -22,25 +22,16 @@ namespace IMDB
     public class Imdb : StatefulActor<ImdbItemRawState>, IImdb
     {
         private const int DOWNLOAD_TIMEOUT_SEC = 10;
-        private Task<Profile> _info;
         private IImdbHub _hub;
 
         protected override async Task OnActivateAsync()
         {
             if (State == null)
-            {
-                ActorEventSource.Current.ActorMessage(
-                    this, $"Loading Data for: {Id.GetStringId()}");
-                await LoadStateAsync();
-                var info = new Profile(State.Name, State.ImageUrl);
-                _info = Task.FromResult(info);
-            }
+                await LoadStateAsync(); // load once per instance rather per call
 
              var id = Constants.Singleton; // should be singleton so the UI can listen to specific actor (like a topic)
             _hub = ActorProxy.Create<IImdbHub>(id);
         }
-
-        public Task<Profile> GetInfo() => _info;
 
         #region TryProcess
 
@@ -48,22 +39,16 @@ namespace IMDB
         {
             var sender = new Profile(data.UserName, data.UserImageUrl);
 
-            Profile item;
+            Profile item = new Profile(State.Name, State.ImageUrl);
+            var twittData = new TwittData (item, sender);
             switch (State.Type)
             {
                 case ImdbType.Movie:
-                    var movie = new Movie(State.Name, State.Date.Year, State.ImageUrl, sender);
-                    await _hub.SendMovieAsync(movie);
-                    item = new Profile(movie.Name, movie.ImageUrl);
+                    await _hub.SendMovieAsync(twittData);
                     break;
                 case ImdbType.Star:
-                    var star = new Star(State.Name, State.Date, State.ImageUrl, sender);
-                    await _hub.SendStarAsync(star);
-                    item = new Profile(star.Name, star.ImageUrl);
+                    await _hub.SendStarAsync(twittData);
                     break;
-                case ImdbType.Unknown:
-                default:
-                    return false; // initialization error
             }
 
             var counterId = new ActorId(State.Name);
@@ -82,12 +67,21 @@ namespace IMDB
         /// <returns></returns>
         private async Task LoadStateAsync()
         {
+            #region Log
+
+            ActorEventSource.Current.ActorMessage(
+                this, $"Loading Data for: {Id.GetStringId()}");
+
+            #endregion // Log
+
             try
             {
                 State = new ImdbItemRawState { Url = Id.GetStringId() };
                 string html = await DownloadAsync();
-                ParseAsync(html);
+                ParseStateAsync(html);
             }
+            #region Exception Handling
+
             catch (Exception ex)
             {
                 ActorEventSource.Current.ActorHostInitializationFailed(ex);
@@ -95,6 +89,8 @@ namespace IMDB
                 var proxy = ActorProxy.Create<IImdbFaults>(id);
                 await proxy.ReportParsingError(State.Url);
             }
+
+            #endregion // Exception Handling
         }
 
         #endregion // LoadStateAsync
@@ -122,13 +118,13 @@ namespace IMDB
 
         #endregion // DownloadAsync
 
-        #region ParseAsync
+        #region ParseStateAsync
 
         /// <summary>
         /// Parses the asynchronous.
         /// </summary>
         /// <param name="html">The HTML.</param>
-        private void ParseAsync(string html)
+        private void ParseStateAsync(string html)
         {
             #region XElement e = ...
 
@@ -146,6 +142,8 @@ namespace IMDB
 
             #endregion // XElement e = ...
 
+            #region State.Type = ... (movie or star)
+
             string type = e.Descendants()
                            .FirstOrDefault(
                                 x => x.Name == "meta" &&
@@ -161,6 +159,10 @@ namespace IMDB
             else
                 throw new Exception("Not supported format");
 
+            #endregion // State.Type = ... (movie or star)
+
+            #region State.Name = ...
+
             State.Name = e.Descendants()
                            .FirstOrDefault(
                                 x => x.Name == "span" &&
@@ -169,6 +171,10 @@ namespace IMDB
 
             if (string.IsNullOrEmpty(State.Name))
                 throw new NullReferenceException("movie's name");
+
+            #endregion // State.Name = ...
+
+            #region State.ImageUrl = ...
 
             State.ImageUrl = e.Descendants()
                            .FirstOrDefault(
@@ -179,34 +185,9 @@ namespace IMDB
             if (string.IsNullOrEmpty(State.ImageUrl))
                 throw new NullReferenceException("movie's image");
 
-            if (State.Type == ImdbType.Movie)
-            {
-                string dateText = e.Descendants()
-                              .FirstOrDefault(
-                                   x => x.Name == "meta" &&
-                                           x.Attribute("itemprop")?.Value == "datePublished")
-                               ?.Attribute("content")
-                               ?.Value;
-                DateTime datePublished;
-                if (!DateTime.TryParse(dateText, out datePublished))
-                    throw new NullReferenceException("movie's date");
-                State.Date = datePublished;
-            }
-            else if (State.Type == ImdbType.Star)
-            {
-                string dateText = e.Descendants()
-                              .FirstOrDefault(
-                                   x => x.Name == "time" &&
-                                           x.Attribute("itemprop")?.Value == "birthDate")
-                               ?.Attribute("datetime")
-                               ?.Value;
-                DateTime birthDate;
-                if (!DateTime.TryParse(dateText, out birthDate))
-                    throw new NullReferenceException("movie's date");
-                State.Date = birthDate;
-            }
+            #endregion // State.ImageUrl = ...
         }
 
-        #endregion // ParseAsync
+        #endregion // ParseStateAsync
     }
 }

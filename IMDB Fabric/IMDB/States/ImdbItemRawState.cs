@@ -22,7 +22,5 @@ namespace IMDB
         public ImdbType Type { get; set; }
         [DataMember]
         public string ImageUrl { get; set; }
-        [DataMember]
-        public DateTime Date { get; set; }
     }
 }

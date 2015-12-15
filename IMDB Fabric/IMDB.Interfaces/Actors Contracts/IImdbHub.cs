@@ -13,8 +13,8 @@ namespace IMDB.Interfaces
     public interface IImdbHub : IActor
         , IActorEventPublisher<IImdbEvents>
     {
-        Task SendMovieAsync(Movie data);
-        Task SendStarAsync(Star data);
+        Task SendMovieAsync(TwittData  data);
+        Task SendStarAsync(TwittData data);
     }
 }
 

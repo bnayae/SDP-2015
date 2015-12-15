@@ -14,8 +14,5 @@ namespace IMDB.Interfaces
     public interface IImdb : IActor 
     {
         Task<bool> TryProcess(Input data);
-
-        [Readonly]
-        Task<Profile> GetInfo();
     }
 }

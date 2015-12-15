@@ -75,8 +75,7 @@
     <Compile Include="DTOs\Input.cs" />
     <Compile Include="DTOs\ProfileRate.cs" />
     <Compile Include="DTOs\Profile.cs" />
-    <Compile Include="DTOs\Star.cs" />
-    <Compile Include="DTOs\Movie.cs" />
+    <Compile Include="DTOs\TwittData.cs" />
     <Compile Include="Enums\ImdbType.cs" />
     <Compile Include="Events Contracts\IImdbFaultEvents.cs" />
     <Compile Include="Events Contracts\IImdbTopRatedEvents.cs" />

@@ -12,7 +12,7 @@ namespace IMDB
 {
     public class ImdbHub : StatelessActor, IImdbHub
     {
-        public Task SendStarAsync(Star data)
+        public Task SendStarAsync(TwittData data)
         {
             ActorEventSource.Current.ActorMessage(this, data.Name);
 
@@ -25,7 +25,7 @@ namespace IMDB
             return Task.FromResult(0);
         }
 
-        public Task SendMovieAsync(Movie data)
+        public Task SendMovieAsync(TwittData  data)
         {
             IImdbEvents e = GetEvent<IImdbEvents>();
 

@@ -165,8 +165,9 @@ namespace IMDB
 
             State.Name = e.Descendants()
                            .FirstOrDefault(
-                                x => x.Name == "span" &&
-                                        x.Attribute("itemprop")?.Value == "name")
+                                x => x.Name == "meta" &&
+                                        x.Attribute("property")?.Value == "og:title")
+                            ?.Attribute("content")
                             ?.Value;
 
             if (string.IsNullOrEmpty(State.Name))

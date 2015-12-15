@@ -9,6 +9,6 @@ namespace IMDB.Interfaces
 {
     public interface IImdbTopRatedEvents : IActorEvents
     {
-        void Changed(ImdbType type, ProfileRate[] items);
+        void Changed(ChangedData data);
     }
 }

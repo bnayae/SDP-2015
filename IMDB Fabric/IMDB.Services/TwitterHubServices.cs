@@ -141,22 +141,9 @@ namespace IMDB.Services
 
         #region Changed
 
-        public async void Changed(ImdbType type, ProfileRate[] items)
+        public async void Changed(ChangedData data)
         {
-            try
-            {
-                await _hubProxy.Invoke(nameof(ImdbHub.Changed), type, items);
-
-                ServiceEventSource.Current.Message($"Notify: Changed");
-            }
-            #region Exception Handling
-
-            catch (Exception ex)
-            {
-                ServiceEventSource.Current.ErrorMessage(ex);
-            }
-
-            #endregion // Exception Handling
+            await NotifyAsync(nameof(ImdbHub.Changed), data);
         }
 
         #endregion // Changed

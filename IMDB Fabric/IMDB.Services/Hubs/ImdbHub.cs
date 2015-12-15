@@ -44,11 +44,11 @@
             #endregion // Exception Handling
         }
 
-        public void Changed(ImdbType type, ProfileRate[] items)
+        public void Changed(ChangedData data)
         {
             try
             {
-                Clients.All.BroadcastChanged(type, items);
+                Clients.All.BroadcastChanged(data);
             }
             #region Exception Handling
 

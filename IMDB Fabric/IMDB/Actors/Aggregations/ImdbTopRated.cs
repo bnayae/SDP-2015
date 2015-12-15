@@ -65,7 +65,8 @@ namespace IMDB
         {
             IImdbTopRatedEvents e = GetEvent<IImdbTopRatedEvents>();
             var items = State.OrderByDescending(m => m.Count).ToArray();
-            e.Changed(_type, items);
+            var data = new ChangedData { Kind = _type, Items = items };
+            e.Changed(data);
         }
     }
 }

@@ -29,6 +29,7 @@ namespace IMDB_Fabric.Client.WPF
         #endregion
 
         #region Properties
+
         public ObservableCollection<Profile> Events { get; } = new ObservableCollection<Profile>();
 
         private ProfileRate[] _moviesRates;
@@ -54,6 +55,7 @@ namespace IMDB_Fabric.Client.WPF
                 RaisePropertyChanged();
             }
         }
+
         #endregion
 
         public MainViewModel()
@@ -69,7 +71,7 @@ namespace IMDB_Fabric.Client.WPF
             _hubProxy = hubConnection.CreateHubProxy(Constants.HubName);
             _hubProxy.On<Movie>("BroadcastLikeMovie", LikeMovie);
             _hubProxy.On<Star>("BroadcastLikeStar", LikeStar);
-            _hubProxy.On<ImdbType, ProfileRate[]>("BroadcastChanged", Changed);
+            _hubProxy.On<ChangedData> ("BroadcastChanged", Changed);
             _hubProxy.On<string>("BroadcastParserError",ParserError);
             await hubConnection.Start();
         }
@@ -90,26 +92,30 @@ namespace IMDB_Fabric.Client.WPF
             });
         }
 
-        public void Changed(ImdbType type, ProfileRate[] items)
+        public void Changed(ChangedData data)
         {
-            switch (type)
+            switch (data.Kind)
             {
                 case ImdbType.Unknown:
                     break;
                 case ImdbType.Movie:
-                    MoviesRates = items;
+                    MoviesRates = data.Items;
                     break;
                 case ImdbType.Star:
-                    StarsRates = items;
+                    StarsRates = data.Items;
                     break;
                 default:
                     break;
             }
         }
 
+        #region ParserError
+
         public void ParserError(string url)
         {
 
         }
+
+        #endregion // ParserError
     }
 }

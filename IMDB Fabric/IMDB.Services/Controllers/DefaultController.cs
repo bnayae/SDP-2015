@@ -1,41 +1,31 @@
 ﻿namespace IMDB.Services.Controllers
 {
+    using Interfaces;
+    using Microsoft.ServiceFabric.Actors;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Web.Http;
 
     [RoutePrefix("api")]
     public class DefaultController : ApiController
     {
-        // GET api/values
-        [Route("values")]
-        public IEnumerable<string> Get()
+        // GET api/top-movies
+        [Route("top-movies")]
+        [HttpGet]
+        public Task<ProfileRate[]> GetMovies()
         {
-            return new string[] { "value1", "value2" };
+            var id = new ActorId(ImdbType.Movie.ToString());
+            var proxy = ActorProxy.Create<IImdbTopRated>(id);
+            return proxy.Get();
         }
 
-        // GET api/values/5
-        [Route("values/{id}")]
-        public string Get(int id)
+        [Route("top-stars")]
+        [HttpGet]
+        public Task<ProfileRate[]> GetStars()
         {
-            return "value";
-        }
-
-        // POST api/values
-        [Route("values")]
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/values/5
-        [Route("values/{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [Route("values/{id}")]
-        public void Delete(int id)
-        {
-        }
+            var id = new ActorId(ImdbType.Star.ToString());
+            var proxy = ActorProxy.Create<IImdbTopRated>(id);
+            return proxy.Get();
+        }       
     }
 }

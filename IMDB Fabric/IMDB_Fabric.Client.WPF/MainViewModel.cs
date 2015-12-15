@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using Microsoft.ServiceFabric.Actors;
 using Microsoft.AspNet.SignalR.Client;
 using System.Configuration;
+using System.Net.Http;
 
 namespace IMDB_Fabric.Client.WPF
 {
@@ -66,13 +67,29 @@ namespace IMDB_Fabric.Client.WPF
         private async Task Initialize()
         {
             string baseUrl = ConfigurationManager.AppSettings["base-url"];
+            using (var http = new HttpClient())
+            {
+                Task m = Task.Run(async () =>
+                {
+                    string topMoviesUrl = $"http://{baseUrl}/imdb/api/top-movies";
+                    var response = await http.GetAsync(topMoviesUrl);
+                    MoviesRates = await response.Content.ReadAsAsync<ProfileRate[]>();
+                });
+                Task s = Task.Run(async () =>
+                {
+                    string topMoviesUrl = $"http://{baseUrl}/imdb/api/top-stars";
+                    var response = await http.GetAsync(topMoviesUrl);
+                    StarsRates = await response.Content.ReadAsAsync<ProfileRate[]>();
+                });
+                await Task.WhenAll(m, s);
+            }
             string url = $"http://{baseUrl}/imdb";
             var hubConnection = new HubConnection(url);
             _hubProxy = hubConnection.CreateHubProxy(Constants.HubName);
             _hubProxy.On<Movie>("BroadcastLikeMovie", LikeMovie);
             _hubProxy.On<Star>("BroadcastLikeStar", LikeStar);
-            _hubProxy.On<ChangedData> ("BroadcastChanged", Changed);
-            _hubProxy.On<string>("BroadcastParserError",ParserError);
+            _hubProxy.On<ChangedData>("BroadcastChanged", Changed);
+            _hubProxy.On<string>("BroadcastParserError", ParserError);
             await hubConnection.Start();
         }
 

@@ -13,6 +13,9 @@ namespace IMDB.Interfaces
     public interface IImdbTopRated : IActor, IActorEventPublisher<IImdbTopRatedEvents>
     {
         Task OferCandidateAsync(ProfileRate profile);
+
+        [Readonly]
+        Task<ProfileRate[]> Get();
     }
 }
 

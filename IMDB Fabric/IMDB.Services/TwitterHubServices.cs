@@ -69,13 +69,13 @@ namespace IMDB.Services
 
         private async Task Initialize()
         {
-            var hubId = new ActorId("PUBLISH");// Kind of topic;
+            var hubId = Constants.Singleton;// Kind of topic;
             var movieId = new ActorId(ImdbType.Movie.ToString());// Kind of topic;
             var starId = new ActorId(ImdbType.Star.ToString());// Kind of topic;
-            var proxyHub = ActorProxy.Create<IImdbHub>(hubId, "fabric:/IMDB_Fabric");
-            var proxyTopMovie = ActorProxy.Create<IImdbTopRated>(movieId, "fabric:/IMDB_Fabric");
-            var proxyTopStar = ActorProxy.Create<IImdbTopRated>(starId, "fabric:/IMDB_Fabric");
-            var proxyFaults = ActorProxy.Create<IImdbFaults>(hubId, "fabric:/IMDB_Fabric");
+            var proxyHub = ActorProxy.Create<IImdbHub>(hubId);
+            var proxyTopMovie = ActorProxy.Create<IImdbTopRated>(movieId);
+            var proxyTopStar = ActorProxy.Create<IImdbTopRated>(starId);
+            var proxyFaults = ActorProxy.Create<IImdbFaults>(hubId);
             while (true)
             {
                 try

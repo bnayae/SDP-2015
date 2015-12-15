@@ -10,7 +10,8 @@ using Microsoft.ServiceFabric.Actors.Communication;
 
 namespace IMDB
 {
-    public class ImdbTopRated : StatefulActor<ProfileRate[]>, IImdbTopRated
+    public class ImdbTopRated : 
+        StatefulActor<ProfileRate[]>, IImdbTopRated
     {
         private const int LIMIT = 3;
         private ImdbType _type;
@@ -54,17 +55,23 @@ namespace IMDB
                 _topItems.Remove(removeCandidate);
             }
 
-            State = _topItems.ToArray();
+            State = _topItems.OrderByDescending(m => m.Count)
+                             .ToArray();
 
             Publish();
 
             return Task.FromResult(0);
         }
 
+        public Task<ProfileRate[]> Get()
+        {
+            return Task.FromResult(State);
+        }
+
         private void Publish()
         {
             IImdbTopRatedEvents e = GetEvent<IImdbTopRatedEvents>();
-            var items = State.OrderByDescending(m => m.Count).ToArray();
+            var items = State;
             var data = new ChangedData { Kind = _type, Items = items };
             e.Changed(data);
         }

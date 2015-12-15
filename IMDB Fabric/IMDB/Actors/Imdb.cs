@@ -36,7 +36,7 @@ namespace IMDB
                 _info = Task.FromResult(info);
             }
 
-             var id = new ActorId("PUBLISH"); // should be singleton so the UI can listen to specific actor (like a topic)
+             var id = Constants.Singleton; // should be singleton so the UI can listen to specific actor (like a topic)
             _hub = ActorProxy.Create<IImdbHub>(id);
         }
 
@@ -91,7 +91,7 @@ namespace IMDB
             catch (Exception ex)
             {
                 ActorEventSource.Current.ActorHostInitializationFailed(ex);
-                var id = new ActorId("PUBLISH");
+                var id = Constants.Singleton;
                 var proxy = ActorProxy.Create<IImdbFaults>(id);
                 await proxy.ReportParsingError(State.Url);
             }

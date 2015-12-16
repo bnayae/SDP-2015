@@ -26,7 +26,7 @@ namespace IMDB
             return base.OnActivateAsync();
         }
 
-        public Task OferCandidateAsync(ProfileRate profile)
+        public async Task OferCandidateAsync(ProfileRate profile)
         {
             ProfileRate existing = _topItems.FirstOrDefault(m => m.Name == profile.Name);
             if (existing != null)
@@ -34,7 +34,6 @@ namespace IMDB
                 existing.Count++; // increment the item which already in the state
                 Publish();
 
-                return Task.FromResult(0);
             }
 
             ProfileRate barierProfile = _topItems
@@ -43,7 +42,7 @@ namespace IMDB
             int barier = barierProfile?.Count ?? 0;
 
             if (_topItems.Count == LIMIT && profile.Count <= barier)
-                return Task.FromResult(0);
+                return;
 
             _topItems.Add(profile);
 
@@ -60,7 +59,13 @@ namespace IMDB
 
             Publish();
 
-            return Task.FromResult(0);
+            #region Log
+
+            var logId = Constants.Singleton;
+            var logProxy = ActorProxy.Create<IImdbFaults>(logId);
+            await logProxy.Report($"Top {_type}");
+
+            #endregion // Log
         }
 
         public Task<ProfileRate[]> Get()

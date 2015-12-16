@@ -13,7 +13,14 @@ namespace IMDB.Interfaces
     public interface IImdbFaults : IActor
         , IActorEventPublisher<IImdbFaultEvents>
     {
+        Task Report(string message);
+
+        Task ReportError(string error);
+
         Task ReportParsingError(string url);
+
+        [Readonly]
+        Task<LogItem[]> GetAsync();
     }
 }
 

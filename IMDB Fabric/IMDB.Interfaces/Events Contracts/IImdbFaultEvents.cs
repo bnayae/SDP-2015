@@ -11,5 +11,6 @@ namespace IMDB.Interfaces
         : IActorEvents
     {
         void ParserError(string url);
+
     }
 }

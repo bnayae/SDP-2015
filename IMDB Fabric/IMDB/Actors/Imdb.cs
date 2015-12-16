@@ -54,6 +54,15 @@ namespace IMDB
             var counterId = new ActorId(State.Name);
             var counterProxy = ActorProxy.Create<IImdbCounter>(counterId);
             await counterProxy.IncrementAsync(State.Type, item);
+
+            #region Log
+
+            var logId = Constants.Singleton;
+            var logProxy = ActorProxy.Create<IImdbFaults>(logId);
+            await logProxy.Report($"Process: {State.Name}");
+
+            #endregion // Log
+
             return true;
         }
 
@@ -88,6 +97,14 @@ namespace IMDB
                 var id = Constants.Singleton;
                 var proxy = ActorProxy.Create<IImdbFaults>(id);
                 await proxy.ReportParsingError(State.Url);
+
+                #region Log
+
+                var logId = Constants.Singleton;
+                var logProxy = ActorProxy.Create<IImdbFaults>(logId);
+                await logProxy.ReportError($"Parse failure: {State.Url}");
+
+                #endregion // Log
             }
 
             #endregion // Exception Handling

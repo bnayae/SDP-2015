@@ -59,7 +59,7 @@ namespace IMDB.Services
                 ServiceEventSource.Current.ServiceHostInitializationFailed(ex);
                 throw;
             }
-                         
+
             await Task.Delay(Timeout.Infinite, cancellationToken);
         }
 
@@ -108,12 +108,28 @@ namespace IMDB.Services
                 await _hubProxy.Invoke(method, item);
 
                 ServiceEventSource.Current.Message($"Notify: {method}");
+
+                #region Log
+
+                var logId = Constants.Singleton;
+                var logProxy = ActorProxy.Create<IImdbFaults>(logId);
+                await logProxy.Report($"SignalR: {method}");
+
+                #endregion // Log
             }
             #region Exception Handling
 
             catch (Exception ex)
             {
                 ServiceEventSource.Current.ErrorMessage(ex);
+
+                #region Log
+
+                var logId = Constants.Singleton;
+                var logProxy = ActorProxy.Create<IImdbFaults>(logId);
+                await logProxy.ReportError($"SignalR Error: {method}");
+
+                #endregion // Log
             }
 
             #endregion // Exception Handling
@@ -123,7 +139,7 @@ namespace IMDB.Services
 
         #region LikeMovie
 
-        public async void LikeMovie(TwittData  movie)
+        public async void LikeMovie(TwittData movie)
         {
             await NotifyAsync(nameof(ImdbHub.LikeMovie), movie);
         }

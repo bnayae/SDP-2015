@@ -20,6 +20,16 @@
       <Parameter Name="MaxAsyncCommitDelayInMilliseconds" Value="100" />
       <Parameter Name="MaxVerPages" Value="32768" />
    </Section>
+   <Section Name="ImdbFaultsActorServiceReplicatorConfig">
+      <Parameter Name="ReplicatorEndpoint" Value="ImdbFaultsActorServiceReplicatorEndpoint" />
+   </Section>
+   <Section Name="ImdbFaultsActorServiceReplicatorSecurityConfig">
+      <Parameter Name="CredentialType" Value="None" />
+   </Section>
+   <Section Name="ImdbFaultsActorServiceLocalStoreConfig">
+      <Parameter Name="MaxAsyncCommitDelayInMilliseconds" Value="100" />
+      <Parameter Name="MaxVerPages" Value="32768" />
+   </Section>
    <Section Name="ImdbActorServiceReplicatorConfig">
       <Parameter Name="ReplicatorEndpoint" Value="ImdbActorServiceReplicatorEndpoint" />
    </Section>

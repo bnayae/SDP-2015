@@ -17,8 +17,6 @@ namespace IMDB.Interfaces
         /// <param name="profile">The profile.</param>
         /// <returns></returns>
         Task IncrementAsync(ImdbType type, Profile profile);
-        [Readonly]
-        Task<int> GetCount();
     }
 }
 

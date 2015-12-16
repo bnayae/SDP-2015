@@ -26,9 +26,7 @@ namespace IMDB
             return base.OnActivateAsync();
         }
 
-        public Task<int> GetCount() => Task.FromResult(State.Count);
-
-        public Task IncrementAsync(ImdbType type, Profile profile)
+        public async Task IncrementAsync(ImdbType type, Profile profile)
         {
             State.Count++;
 
@@ -36,9 +34,15 @@ namespace IMDB
 
             var id = new ActorId(type.ToString());
             var proxy = ActorProxy.Create<IImdbTopRated>(id);
-            proxy.OferCandidateAsync(rate);
+            await proxy.OferCandidateAsync(rate);
 
-            return Task.FromResult(0);
+            #region Log
+
+            var logId = Constants.Singleton;
+            var logProxy = ActorProxy.Create<IImdbFaults>(logId);
+            await logProxy.Report($"{profile.Name} Counter: {State.Count}");
+
+            #endregion // Log
         }
     }
 }

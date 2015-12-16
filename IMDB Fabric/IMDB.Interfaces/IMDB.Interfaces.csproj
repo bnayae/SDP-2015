@@ -71,8 +71,10 @@
     <Compile Include="Actors Contracts\IImdb.cs" />
     <Compile Include="Actors Contracts\Aggregations\IImdbCounter.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="DTOs\Input - Copy.cs" />
+    <Compile Include="DTOs\ChangedData.cs" />
     <Compile Include="DTOs\Input.cs" />
+    <Compile Include="DTOs\LogItem.cs" />
+    <Compile Include="DTOs\LogsState.cs" />
     <Compile Include="DTOs\ProfileRate.cs" />
     <Compile Include="DTOs\Profile.cs" />
     <Compile Include="DTOs\TwittData.cs" />

@@ -8,6 +8,8 @@
       <Parameter Name="ImdbCounterActorService_MinReplicaSetSize" DefaultValue="2" />
       <Parameter Name="ImdbCounterActorService_TargetReplicaSetSize" DefaultValue="3" />
       <Parameter Name="ImdbFaultsActorService_PartitionCount" DefaultValue="3" />
+      <Parameter Name="ImdbFaultsActorService_MinReplicaSetSize" DefaultValue="2" />
+      <Parameter Name="ImdbFaultsActorService_TargetReplicaSetSize" DefaultValue="3" />
       <Parameter Name="ImdbHubActorService_PartitionCount" DefaultValue="3" />
       <Parameter Name="ImdbActorService_PartitionCount" DefaultValue="3" />
       <Parameter Name="ImdbActorService_MinReplicaSetSize" DefaultValue="2" />
@@ -40,9 +42,9 @@
          </StatefulService>
       </Service>
       <Service Name="ImdbFaultsActorService" GeneratedIdRef="ce0dead9-0c46-41d7-b6fc-4fa57af7e11a">
-         <StatelessService ServiceTypeName="ImdbFaultsActorServiceType">
+         <StatefulService ServiceTypeName="ImdbFaultsActorServiceType" TargetReplicaSetSize="[ImdbFaultsActorService_TargetReplicaSetSize]" MinReplicaSetSize="[ImdbFaultsActorService_MinReplicaSetSize]">
             <UniformInt64Partition PartitionCount="9" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
-         </StatelessService>
+         </StatefulService>
       </Service>
       <Service Name="ImdbHubActorService" GeneratedIdRef="af7719a8-9789-4b52-b585-35c532dc6a56">
          <StatelessService ServiceTypeName="ImdbHubActorServiceType">

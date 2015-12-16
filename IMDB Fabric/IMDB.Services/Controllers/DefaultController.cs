@@ -10,6 +10,16 @@
     public class DefaultController : ApiController
     {
         // GET api/top-movies
+        [Route("logs")]
+        [HttpGet]
+        public Task<LogItem[]> GetLogs()
+        {
+            var id = Constants.Singleton;
+            var proxy = ActorProxy.Create<IImdbFaults>(id);
+            return proxy.GetAsync();
+        }
+
+        // GET api/top-movies
         [Route("top-movies")]
         [HttpGet]
         public Task<ProfileRate[]> GetMovies()

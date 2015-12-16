@@ -96,28 +96,11 @@ namespace IMDB.Services
             ServiceEventSource.Current.ServiceMessage(this, "Twitter: Authorizing");
             try
             {
-                string tmp = CloudConfigurationManager.GetSetting("IsLocal");
-                bool isLocal;
-                string consumerKey, consumerSecret, accessToken, accessTokenSecret;
-                //if (bool.TryParse(tmp, out isLocal) && isLocal)
-                //{
-                //    consumerKey = Environment.GetEnvironmentVariable("TweeterConsumerKey");
-                //    consumerSecret = Environment.GetEnvironmentVariable("TweeterConsumerSecret");
-                //    accessToken = Environment.GetEnvironmentVariable("TwitterAccessToken");
-                //    accessTokenSecret = Environment.GetEnvironmentVariable("TwitterAccessTokenSecret");
-                //}
-                //else
-                //{
-                //    consumerKey = CloudConfigurationManager.GetSetting("TwittererConsumerKey");
-                //    consumerSecret = CloudConfigurationManager.GetSetting("TwittererConsumerSecret");
-                //    accessToken = CloudConfigurationManager.GetSetting("TwitterAccessToken");
-                //    accessTokenSecret = CloudConfigurationManager.GetSetting("TwitterAccessTokenSecret");
-                //}
-                    consumerKey = "H8p54995Li7jPmVLJ8bB9mQB0";
-                    consumerSecret = "weCBWgqb59b7788rQPybz3c0v8Jaib3478DtnRIN37NgDago0N";
-                    accessToken = "3411603499-c99yJa5wWoVUYXcypK7nKM8MyUWKXmnVGO9maS9";
-                    accessTokenSecret = "XLKGR6VsXpTsjLx4E5ZaL20cCp8Yoc42mlMe3ZW6tx7hC";
-
+                string consumerKey = Environment.GetEnvironmentVariable("TweeterConsumerKey");
+                string consumerSecret = Environment.GetEnvironmentVariable("TweeterConsumerSecret");
+                string accessToken = Environment.GetEnvironmentVariable("TwitterAccessToken");
+                string accessTokenSecret = Environment.GetEnvironmentVariable("TwitterAccessTokenSecret");
+                
                 var auth = new SingleUserAuthorizer()
                 {
                     CredentialStore = new SingleUserInMemoryCredentialStore

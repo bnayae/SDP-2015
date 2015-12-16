@@ -33,7 +33,7 @@ namespace IMDB
             {
                 existing.Count++; // increment the item which already in the state
                 Publish();
-
+                return;
             }
 
             ProfileRate barierProfile = _topItems

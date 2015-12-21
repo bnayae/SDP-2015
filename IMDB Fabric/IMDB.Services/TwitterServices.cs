@@ -96,11 +96,29 @@ namespace IMDB.Services
             ServiceEventSource.Current.ServiceMessage(this, "Twitter: Authorizing");
             try
             {
+                #region string consumerKey, consumerSecret, accessToken, accessTokenSecret = ...
+
                 string consumerKey = Environment.GetEnvironmentVariable("TweeterConsumerKey");
                 string consumerSecret = Environment.GetEnvironmentVariable("TweeterConsumerSecret");
                 string accessToken = Environment.GetEnvironmentVariable("TwitterAccessToken");
                 string accessTokenSecret = Environment.GetEnvironmentVariable("TwitterAccessTokenSecret");
-                
+
+                if (string.IsNullOrEmpty(consumerKey))
+                {
+                    var config = this.ServiceInitializationParameters
+                        .CodePackageActivationContext
+                        .GetConfigurationPackageObject("Config")
+                        .Settings.Sections["TwitterCredentials"]
+                        .Parameters;
+
+                    consumerKey = config["TweeterConsumerKey"]?.Value;
+                    consumerSecret = config["TweeterConsumerSecret"]?.Value;
+                    accessToken = config["TwitterAccessToken"]?.Value;
+                    accessTokenSecret = config["TwitterAccessTokenSecret"]?.Value;
+                }
+
+                #endregion // string consumerKey, consumerSecret, accessToken, accessTokenSecret = ...
+
                 var auth = new SingleUserAuthorizer()
                 {
                     CredentialStore = new SingleUserInMemoryCredentialStore

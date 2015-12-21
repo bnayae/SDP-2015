@@ -7,4 +7,10 @@
     <Parameter Name="MyParameter" Value="Value1" />
   </Section>
   -->
+  <Section Name="TwitterCredentials">
+    <Parameter Name="ConsumerKey " Value="[enter the key]" />
+    <Parameter Name="ConsumerSecret" Value="[enter the key]" />
+    <Parameter Name="AccessToken " Value="[enter the key]" />
+    <Parameter Name="AccessTokenSecret" Value="[enter the key]" />
+  </Section>
 </Settings>

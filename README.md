@@ -1,7 +1,12 @@
-## This Git is a sample code which compose combination of Services and Actors
+## This Git is a sample code which compose combination of Services and Actors.
 
-remember to enter your own Twitter credencials
-for azure deployment at the Service setting
+it was present as part of SELA Developer Practice Conferance.
+
+Running Services at Scale with Azure Service Fabric by Bnaya Eshet and Avi Avni.
+[http://www.seladeveloperpractice.com/sessions?selected=30]
+
+remember to enter your own Twitter credencials,
+for azure deployment at the Service setting.
 
 Section Name="TwitterCredentials"
 Parameters 
